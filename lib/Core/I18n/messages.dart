@@ -171,6 +171,8 @@ class AppStrings {
   static const String emptyNotification = "emptyNotification";
   static const String notification = "notification";
   static const String clearAll = "clearAll";
+  static const String clearNotificationsWarning = "clearNotificationsWarning";
+  static const String clearOnlyRead = "clearOnlyRead";
   static const String responseSent = "responseSent";
   static const String responseSentMsg = "responseSentMsg";
   static const String backToHome = "backToHome";

@@ -187,6 +187,10 @@ class DeLanguageData extends LanguageDataKeys {
         AppStrings.emptyNotification: "Keine Benachrichtigungen.",
         AppStrings.notification: "Benachrichtigungen",
         AppStrings.clearAll: "Alle löschen",
+        AppStrings.clearNotificationsWarning:
+            "⚠️ {count} ausstehende Anfrage(n) behalten - bitte antworten Sie darauf",
+        AppStrings.clearOnlyRead:
+            "Benachrichtigungen gelöscht (ausstehende Anfragen behalten)",
         AppStrings.responseSent: "Antwort gesendet",
         AppStrings.responseSentMsg: "Antwort gesendet",
         AppStrings.firstNameHint: "Ihr Vorname",

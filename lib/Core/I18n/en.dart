@@ -189,6 +189,10 @@ class EnLanguageData extends LanguageDataKeys {
         AppStrings.emptyNotification: "No notifications yet.",
         AppStrings.notification: "Notifications",
         AppStrings.clearAll: "Clear all",
+        AppStrings.clearNotificationsWarning:
+            "⚠️ {count} pending request(s) kept - please respond to them",
+        AppStrings.clearOnlyRead:
+            "Notifications cleared (pending requests kept)",
         AppStrings.responseSent: "Response sent",
         AppStrings.responseSentMsg: "Response sent successfully",
         AppStrings.firstNameHint: "Your first name",
