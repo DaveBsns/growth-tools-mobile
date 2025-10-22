@@ -27,7 +27,11 @@ class DeLanguageData extends LanguageDataKeys {
         AppStrings.profile: "Profil",
         AppStrings.settings: "Einstellungen",
         AppStrings.projectTitle: "Projekttitel:*",
-        AppStrings.projectTitleHint: "Geben Sie Ihrem Projekt einen Titel",
+        AppStrings.projectTitleHint:
+            "Geben Sie Ihrem Projekt einen Titel (3-50 Zeichen)",
+        AppStrings.projectTitleRangeError:
+            "Der Titel muss zwischen 3 und 50 Zeichen lang sein",
+        AppStrings.projectTitleCharacterRange: "3-50 Zeichen",
         AppStrings.desciption: "Beschreibung:",
         AppStrings.descriptionHint: "Gib eine Beschreibung ein",
         AppStrings.saveAsDraft: "Als Entwurf speichern",
@@ -359,6 +363,8 @@ class DeLanguageData extends LanguageDataKeys {
         AppStrings.dailogAddTagsTitle: "Tags hinzufügen",
         AppStrings.dailogAddTagsContent:
             "Fügen Sie Tags zum Projekt hinzu, um es einfacher zu finden.",
+        AppStrings.dailogProjectTitleInfo:
+            "Der Projekttitel sollte zwischen 3 und 50 Zeichen lang sein. Wählen Sie einen klaren und aussagekräftigen Titel, der Ihr Projekt gut repräsentiert.",
         AppStrings.dailogAddCoursesTitle: "Kurse hinzufügen",
         AppStrings.dailogAddCoursesContent:
             "Fügen Sie Kurse zum Projekt hinzu, um es einfacher zu finden.",

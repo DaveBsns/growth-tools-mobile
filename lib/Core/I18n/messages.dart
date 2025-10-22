@@ -26,6 +26,8 @@ class AppStrings {
   static const String settings = "settings";
   static const String projectTitle = "projectTitle";
   static const String projectTitleHint = "projectTitleHint";
+  static const String projectTitleRangeError = "projectTitleRangeError";
+  static const String projectTitleCharacterRange = "projectTitleCharacterRange";
   static const String desciption = "desciption";
   static const String descriptionHint = "descriptionHint";
   static const String saveAsDraft = "saveAsDraft";
@@ -306,6 +308,7 @@ class AppStrings {
   static const String dailogAddLinksContent = "dailogAddLinksContent";
   static const String dailogAddTagsTitle = "dailogAddTagsTitle";
   static const String dailogAddTagsContent = "dailogAddTagsContent";
+  static const String dailogProjectTitleInfo = "dailogProjectTitleInfo";
   static const String dailogAddCoursesTitle = "dailogAddCoursesTitle";
   static const String dailogAddCoursesContent = "dailogAddCoursesContent";
   static const String dailogAddTeamMemberTitle = "dailogAddTeamMemberTitle";

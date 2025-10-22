@@ -27,7 +27,11 @@ class EnLanguageData extends LanguageDataKeys {
         AppStrings.profile: "Profile",
         AppStrings.settings: "Settings",
         AppStrings.projectTitle: "Project Title:*",
-        AppStrings.projectTitleHint: "Enter a title for your project",
+        AppStrings.projectTitleHint:
+            "Enter a title for your project (3-50 characters)",
+        AppStrings.projectTitleRangeError:
+            "Title must be between 3 and 50 characters",
+        AppStrings.projectTitleCharacterRange: "3-50 characters",
         AppStrings.desciption: "Description:",
         AppStrings.descriptionHint: "Enter description here",
         AppStrings.saveAsDraft: "Save as draft",
@@ -350,6 +354,8 @@ class EnLanguageData extends LanguageDataKeys {
         AppStrings.dailogAddTagsTitle: "Add Tags",
         AppStrings.dailogAddTagsContent:
             "Add tags to the project to make it easier to find it.",
+        AppStrings.dailogProjectTitleInfo:
+            "The project title should be between 3 and 50 characters. Choose a clear and descriptive title that represents your project well.",
         AppStrings.dailogAddCoursesTitle: "Add Courses",
         AppStrings.dailogAddCoursesContent:
             "Add courses to the project to make it easier to find it.",

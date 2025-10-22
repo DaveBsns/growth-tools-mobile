@@ -78,6 +78,11 @@ class CreateNewProjectController extends GetxController {
     update();
   }
 
+  bool isTitleValid() {
+    final len = titleCtrl.text.trim().length;
+    return len >= 3 && len <= 50;
+  }
+
   void updateDescription(String description) {
     _description = description;
     update();
@@ -338,9 +343,21 @@ class CreateNewProjectController extends GetxController {
   }
 
   void createNewProjectStep2() {
+    // Validate title
+    if (!isTitleValid()) {
+      AppRepo().showSnackbar(
+        label: AppStrings.warning.tr,
+        text: AppStrings.projectTitleRangeError.tr,
+      );
+      return;
+    }
+
+    // Validate description
     if (descriptionCtrl.text.length < 100) {
       AppRepo().showSnackbar(
-          label: AppStrings.warning.tr, text: AppStrings.descriptionWaring.tr);
+        label: AppStrings.warning.tr,
+        text: AppStrings.descriptionWaring.tr,
+      );
       return;
     }
 
