@@ -235,6 +235,10 @@ class DeLanguageData extends LanguageDataKeys {
             "Die Datei @keyword3 ist zu groß oder ein nicht unterstütztes Format",
         AppStrings.noFileSelected: "Es wurde keine Datei ausgewählt",
         AppStrings.writeAComment: "Schreib einen Kommentar",
+        AppStrings.commentTooShort:
+            "Kommentar muss mindestens 2 Zeichen lang sein",
+        AppStrings.commentTooLong:
+            "Kommentar darf maximal 300 Zeichen lang sein",
         AppStrings.noUsersToShow:
             "Es gibt keine Benutzer, die angezeigt werden können.\nBitte prüfen Sie später.",
         AppStrings.emptyHere: "Hier ist es leer!",

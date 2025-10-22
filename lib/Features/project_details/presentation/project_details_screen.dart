@@ -332,12 +332,10 @@ class ProjectDetailsScreen extends GetView<ProjectDetailsController> {
                               child: TextField(
                                 focusNode: controller.myFocusNode,
                                 controller: controller.commentCtrl,
-                                maxLength: 500,
+                                maxLength: 300,
                                 minLines: 1,
                                 maxLines: 5,
                                 decoration: InputDecoration(
-                                  counter: null,
-                                  counterText: "",
                                   fillColor: Colors.white,
                                   filled: true,
                                   border: OutlineInputBorder(

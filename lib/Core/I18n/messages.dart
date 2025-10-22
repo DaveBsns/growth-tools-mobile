@@ -212,6 +212,8 @@ class AppStrings {
   static const String maximumMedias = "maximumMedias";
   static const String fileAlreadyAdded = "fileAlreadyAdded";
   static const String writeAComment = "writeAComment";
+  static const String commentTooShort = "commentTooShort";
+  static const String commentTooLong = "commentTooLong";
   static const String noUsersToShow = "noUsersToShow";
   static const String emptyHere = "emptyHere";
   static const String fileUploadInfo = "fileUploadInfo";

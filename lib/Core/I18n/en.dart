@@ -239,6 +239,8 @@ class EnLanguageData extends LanguageDataKeys {
         AppStrings.maximumMedias: "You have reached the maximum medias!",
         AppStrings.fileAlreadyAdded: "The file @keyword4 is already added",
         AppStrings.writeAComment: "Write a comment",
+        AppStrings.commentTooShort: "Comment must be at least 2 characters",
+        AppStrings.commentTooLong: "Comment cannot exceed 300 characters",
         AppStrings.noUsersToShow:
             "There are no users to show.\nPlease check later.",
         AppStrings.emptyHere: "It is empty here!",
