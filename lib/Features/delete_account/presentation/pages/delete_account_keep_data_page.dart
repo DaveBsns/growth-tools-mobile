@@ -56,7 +56,7 @@ class DeleteAccountKeepDataPage extends GetView<DeleteAccountController> {
                                 width: 250,
                               )
                             : Text(
-                                '00:${controller.timeLeft.toString().padLeft(2, '0')}',
+                                controller.formattedTime,
                                 style: const TextStyle(
                                   fontSize: 16,
                                 ),
