@@ -88,7 +88,8 @@ class UserSuggestionProfileScreen
                                   ),
                                   Gap(AppConfig().dimens.medium),
                                   Text(
-                                    "${state.user?.firstname} ${state.user?.surname}",
+                                    state.user?.displayName ??
+                                        AppStrings.deletedUser.tr,
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,

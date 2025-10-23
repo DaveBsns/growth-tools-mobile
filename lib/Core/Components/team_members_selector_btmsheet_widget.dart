@@ -139,8 +139,7 @@ class _InterestAndCourseSelectorBottomSheetState
                                       AppConfig().dimens.small),
                                 ),
                                 selectedColor: AppConfig().colors.greenColor,
-                                label:
-                                    Text('${entry.firstname} ${entry.surname}'),
+                                label: Text(entry.displayName),
                                 labelStyle: isSelected
                                     ? textStyles.titleMedium!
                                         .copyWith(color: Colors.white)

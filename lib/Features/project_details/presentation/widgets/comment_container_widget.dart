@@ -162,7 +162,7 @@ class _CommentContainerWidgetState extends State<CommentContainerWidget> {
               );
             },
             child: Text(
-              '${toCamelCase(widget.comment.user.firstname)} ${toCamelCase(widget.comment.user.surname)}',
+              widget.comment.user.displayName,
               style: TextStyle(
                 color: AppColors().txtColor,
                 fontWeight: FontWeight.w700,

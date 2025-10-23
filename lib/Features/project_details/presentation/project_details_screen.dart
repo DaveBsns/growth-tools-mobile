@@ -132,12 +132,8 @@ class ProjectDetailsScreen extends GetView<ProjectDetailsController> {
                                 joinedStatus: controller.joinedStatus.value,
                                 onTappedComment: controller.scrollToComments,
                                 ownerName:
-                                    '${controller.project?.owner?.firstname ?? ''} ${controller.project?.owner?.surname ?? ''}'
-                                            .trim()
-                                            .isNotEmpty
-                                        ? '${controller.project?.owner?.firstname ?? ''} ${controller.project?.owner?.surname ?? ''}'
-                                            .trim()
-                                        : 'N/A',
+                                    controller.project?.owner?.displayName ??
+                                        AppStrings.deletedUser.tr,
                                 ownerId: controller.project?.owner?.id ?? '',
                                 comments: controller.comments.length,
                                 likes: ((controller.project?.likes ?? 0) +

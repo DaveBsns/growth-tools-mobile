@@ -110,4 +110,40 @@ class User {
           : [],
     );
   }
+
+  /// Returns the full name of the user, or "Deleted User" if the user data is anonymized/null
+  String get displayName {
+    final first = firstname.trim();
+    final last = surname.trim();
+
+    // Check if both names are empty, null, or literally "null"
+    if ((first.isEmpty || first.toLowerCase() == 'null') &&
+        (last.isEmpty || last.toLowerCase() == 'null')) {
+      return 'Deleted User';
+    }
+
+    // Check if only one name is null/empty
+    if (first.isEmpty || first.toLowerCase() == 'null') {
+      return last.isNotEmpty && last.toLowerCase() != 'null'
+          ? last
+          : 'Deleted User';
+    }
+    if (last.isEmpty || last.toLowerCase() == 'null') {
+      return first.isNotEmpty && first.toLowerCase() != 'null'
+          ? first
+          : 'Deleted User';
+    }
+
+    // Both names are valid
+    return '$first $last'.trim();
+  }
+
+  /// Returns just the first name, or "Deleted" if anonymized
+  String get displayFirstName {
+    final first = firstname.trim();
+    if (first.isEmpty || first.toLowerCase() == 'null') {
+      return 'Deleted';
+    }
+    return first;
+  }
 }

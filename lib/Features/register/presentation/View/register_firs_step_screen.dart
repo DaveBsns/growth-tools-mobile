@@ -126,7 +126,7 @@ class RegisterFirstStepScreen extends GetView<RegisterController> {
             ),
             Gap(AppConfig().dimens.medium),
             Text(
-              "${AppStrings.recoveryEmail.tr}: ",
+              "${AppStrings.recoveryEmail.tr}: *",
               style: textTheme.titleMedium,
             ),
             Container(

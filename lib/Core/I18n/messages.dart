@@ -84,6 +84,8 @@ class AppStrings {
   static const String deleteAccountAnanymize = "deleteAccountAnanymize";
   static const String deleteAccountComplete = "deleteAccountComplete";
   static const String deleteMaterial = "deleteMaterial";
+  static const String deletedUser = "deletedUser";
+  static const String deletedUserShort = "deletedUserShort";
   static const String changePicture = "changePicture";
   static const String editProfile = "editProfile";
   static const String cancel = "cancel";

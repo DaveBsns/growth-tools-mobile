@@ -18,7 +18,7 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
     return Scaffold(
       backgroundColor: AppColors().backGroundColor,
       appBar: AppBar(
-        title: const Text("Set New Password"),
+        title: Text(AppStrings.resetPassword.tr),
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -34,7 +34,7 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
             CustomTextField(
               key: const Key('auth_password'),
               controller: controller.passwordController,
-              labelText: AppStrings.enterYourEmailAdr.tr,
+              labelText: AppStrings.newPasswordHint.tr,
               isPassword: true,
               secondIcon: Icons.remove_red_eye,
               onSecondIconPressed: () {
@@ -43,14 +43,14 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
             ),
             Gap(AppConfig().dimens.medium),
             Text(
-              "Retype New Password:",
+              '${AppStrings.reEnterNewPassword.tr}:',
               style: textTheme.titleMedium,
             ),
             Gap(AppConfig().dimens.small),
             CustomTextField(
               key: const Key('auth_re_password'),
               controller: controller.rePasswordController,
-              labelText: AppStrings.enterYourPassword.tr,
+              labelText: AppStrings.reEnterNewPassword.tr,
               isPassword: true,
               secondIcon: Icons.remove_red_eye,
               onSecondIconPressed: () {
@@ -67,7 +67,7 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
             mainAxisSize: MainAxisSize.min,
             children: [
               CustomIconButton(
-                title: "Reset",
+                title: AppStrings.resetPassword.tr,
                 onTap: controller.loading.value ? null : controller.reset,
                 txtColor: AppColors().primaryColor,
               ),
