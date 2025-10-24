@@ -18,6 +18,7 @@ class RegisterRepositoryImpl implements RegisterRepository {
     required String email,
     required String recoveryEmail,
     required String password,
+    String? institution,
   }) async {
     return await AuthenticationService().createUser(
       firstname: firstname,
@@ -25,6 +26,7 @@ class RegisterRepositoryImpl implements RegisterRepository {
       email: email,
       recoveryEmail: recoveryEmail,
       password: password,
+      institution: institution,
     );
   }
 

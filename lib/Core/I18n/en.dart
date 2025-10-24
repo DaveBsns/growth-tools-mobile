@@ -272,6 +272,10 @@ class EnLanguageData extends LanguageDataKeys {
         AppStrings.delete: "Delete",
         AppStrings.deletedUser: "Deleted User",
         AppStrings.deletedUserShort: "Deleted",
+        AppStrings.institution: "Institution",
+        AppStrings.selectInstitution: "Select your institution",
+        AppStrings.institutionEmailHint:
+            "Please use your institutional email address",
         AppStrings.deleteProject: "Delete Project",
         AppStrings.deleteProjectContent:
             "Are you sure you want to delete @projectKeyword? This action cannot be undone.",

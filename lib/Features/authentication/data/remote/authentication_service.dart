@@ -15,6 +15,7 @@ class AuthenticationService extends ServicesHelper {
     required String email,
     required String recoveryEmail,
     required String password,
+    String? institution,
   }) async {
     final Map<String, dynamic> data = {
       "firstName": firstname,
@@ -24,6 +25,11 @@ class AuthenticationService extends ServicesHelper {
       "password": password,
       "userType": "student",
     };
+
+    // Add institution if provided (backend will add this field as optional)
+    if (institution != null && institution.isNotEmpty) {
+      data["institution"] = institution;
+    }
 
     final mappedData = await request(
       '$apiURL/new',

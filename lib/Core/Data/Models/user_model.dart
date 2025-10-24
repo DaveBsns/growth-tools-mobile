@@ -19,6 +19,7 @@ class User {
   final List<Tag> studyPrograms;
   final String? username;
   final bool? pendingUser;
+  final String? institution;
 
   User({
     required this.id,
@@ -37,6 +38,7 @@ class User {
     this.interestedTags = const [],
     this.studyPrograms = const [],
     this.pendingUser,
+    this.institution,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -54,6 +56,7 @@ class User {
       token: json['token'],
       refreshToken: json['refreshToken'],
       username: json['username'],
+      institution: json['institution'],
       profilePicture: (json['profilePicture'] != null &&
               json['profilePicture'] is Map<String, dynamic>)
           ? ProjectFile.fromJson(json['profilePicture'])
@@ -92,6 +95,7 @@ class User {
       token: token ?? json['token'],
       refreshToken: refreshToken ?? json['refreshToken'],
       username: json['username'],
+      institution: json['institution'],
       profilePicture: (json['profilePicture'] != null &&
               json['profilePicture'] is Map<String, dynamic>)
           ? ProjectFile.fromJson(json['profilePicture'])
@@ -145,5 +149,38 @@ class User {
       return 'Deleted';
     }
     return first;
+  }
+
+  /// TODO Shayan: Returns the institution name, inferring from email domain if not set
+  String? get institutionName {
+    // If institution is already set, return it
+    if (institution != null && institution!.isNotEmpty) {
+      return institution;
+    }
+
+    // Try to infer from email domain for old users
+    if (email.isEmpty) return null;
+
+    final emailDomain = email.contains('@') ? email.split('@')[1] : '';
+
+    // Map email domains to institution names
+    const domainToInstitution = {
+      'hs-heilbronn.de': 'HHN - Hochschule Heilbronn',
+      'stud.hs-heilbronn.de': 'HHN - Hochschule Heilbronn',
+      'ipai.de': 'IPAI',
+      'stud.ipai.de': 'IPAI',
+      'tum.de': 'Technische Universität München (TUM)',
+      'stud.tum.de': 'Technische Universität München (TUM)',
+      '42heilbronn.de': 'Heilbronn 42',
+      'stud.42heilbronn.de': 'Heilbronn 42',
+      'dhbw.de': 'DHBW',
+      'stud.dhbw.de': 'DHBW',
+      'isi.fraunhofer.de': 'Fraunhofer ISI',
+      'stud.isi.fraunhofer.de': 'Fraunhofer ISI',
+      'iao.fraunhofer.de': 'Fraunhofer IAO',
+      'stud.iao.fraunhofer.de': 'Fraunhofer IAO',
+    };
+
+    return domainToInstitution[emailDomain];
   }
 }

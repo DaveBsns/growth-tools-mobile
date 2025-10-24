@@ -7,6 +7,7 @@ import 'package:idealize_new_version/Core/Components/otp_bottom_sheet.dart';
 import 'package:idealize_new_version/Core/Constants/colors.dart';
 import 'package:idealize_new_version/Core/Constants/config.dart';
 import 'package:idealize_new_version/Core/Data/Models/tag_model.dart';
+import 'package:idealize_new_version/Core/Data/Models/institution_model.dart';
 import 'package:idealize_new_version/Core/Utils/extensions.dart';
 import 'package:idealize_new_version/app_repo.dart';
 import 'package:image_picker/image_picker.dart';
@@ -29,6 +30,9 @@ class RegisterController extends GetxController {
   bool surnameCheck = false;
   bool passwordCheck = false;
 
+  // Institution selection
+  Rx<Institution?> selectedInstitution = Rx<Institution?>(null);
+
   final usernameCtrl = TextEditingController();
   final emailCtrl = TextEditingController();
   final reEmailCtrl = TextEditingController();
@@ -50,6 +54,17 @@ class RegisterController extends GetxController {
   bool isValidEmail(String email) {
     final RegExp emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+$');
     return emailRegex.hasMatch(email);
+  }
+
+  /// Validates email based on selected institution
+  bool isValidInstitutionEmail(String email) {
+    if (selectedInstitution.value == null) return false;
+    return selectedInstitution.value!.isValidEmail(email);
+  }
+
+  /// Get email placeholder hint based on selected institution
+  String get institutionEmailPlaceholder {
+    return selectedInstitution.value?.emailPlaceholder ?? 'user@example.com';
   }
 
   bool isStrongPassword(String password) {
@@ -128,6 +143,15 @@ class RegisterController extends GetxController {
   }
 
   Future<void> nextStep() async {
+    if (selectedInstitution.value == null) {
+      AppRepo().showSnackbar(
+        label: AppStrings.error.tr,
+        text: AppStrings.selectInstitution.tr,
+        position: SnackPosition.TOP,
+      );
+      return;
+    }
+
     if (!firstNameCheck ||
         !emailCheck ||
         !surnameCheck ||
@@ -243,6 +267,7 @@ class RegisterController extends GetxController {
       firstname: firstname,
       password: password,
       surname: surname,
+      institution: selectedInstitution.value?.name,
     );
 
     if (response != null) {

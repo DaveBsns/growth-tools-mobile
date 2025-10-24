@@ -10,6 +10,7 @@ abstract class RegisterRepository {
     required String email,
     required String recoveryEmail,
     required String password,
+    String? institution,
   });
 
   Future<Map<String, dynamic>?> verifyAccount({

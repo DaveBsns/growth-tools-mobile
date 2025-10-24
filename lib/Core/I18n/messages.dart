@@ -86,6 +86,9 @@ class AppStrings {
   static const String deleteMaterial = "deleteMaterial";
   static const String deletedUser = "deletedUser";
   static const String deletedUserShort = "deletedUserShort";
+  static const String institution = "institution";
+  static const String selectInstitution = "selectInstitution";
+  static const String institutionEmailHint = "institutionEmailHint";
   static const String changePicture = "changePicture";
   static const String editProfile = "editProfile";
   static const String cancel = "cancel";

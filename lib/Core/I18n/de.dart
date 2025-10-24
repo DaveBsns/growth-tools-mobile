@@ -108,6 +108,10 @@ class DeLanguageData extends LanguageDataKeys {
         AppStrings.delete: "Löschen",
         AppStrings.deletedUser: "Gelöschter Benutzer",
         AppStrings.deletedUserShort: "Gelöscht",
+        AppStrings.institution: "Institution",
+        AppStrings.selectInstitution: "Wählen Sie Ihre Institution",
+        AppStrings.institutionEmailHint:
+            "Bitte verwenden Sie Ihre institutionelle E-Mail-Adresse",
         AppStrings.deleteAccount: "Account löschen",
         AppStrings.deleteMaterial: "Material löschen",
         AppStrings.logout: "Abmelden",

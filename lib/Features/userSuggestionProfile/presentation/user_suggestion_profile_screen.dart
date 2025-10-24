@@ -106,6 +106,52 @@ class UserSuggestionProfileScreen
                                     ),
                                   ),
                                   Gap(AppConfig().dimens.extraSmall),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.school_outlined,
+                                        size: 16,
+                                        color: AppConfig().colors.darkGrayColor,
+                                      ),
+                                      const SizedBox(width: 6),
+                                      Text(
+                                        'Institution: ',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color:
+                                              AppConfig().colors.darkGrayColor,
+                                        ),
+                                      ),
+                                      Flexible(
+                                        child: Text(
+                                          state.user?.institutionName ??
+                                              'Not specified',
+                                          style: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w400,
+                                            color:
+                                                state.user?.institutionName !=
+                                                        null
+                                                    ? AppConfig()
+                                                        .colors
+                                                        .darkGrayColor
+                                                    : AppConfig()
+                                                        .colors
+                                                        .lightGrayColor,
+                                            fontStyle:
+                                                state.user?.institutionName !=
+                                                        null
+                                                    ? FontStyle.normal
+                                                    : FontStyle.italic,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Gap(AppConfig().dimens.extraSmall),
                                 ],
                               ),
                             ),

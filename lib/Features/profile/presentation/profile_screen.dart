@@ -102,6 +102,48 @@ class ProfileScreen extends GetView<ProfileController> {
                                 ),
                               ),
                               Gap(AppConfig().dimens.extraSmall),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.school_outlined,
+                                    size: 16,
+                                    color: AppConfig().colors.darkGrayColor,
+                                  ),
+                                  const SizedBox(width: 6),
+                                  Text(
+                                    'Institution: ',
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppConfig().colors.darkGrayColor,
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      AppRepo().user?.institutionName ??
+                                          'Not specified',
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppRepo()
+                                                    .user
+                                                    ?.institutionName !=
+                                                null
+                                            ? AppConfig().colors.darkGrayColor
+                                            : AppConfig().colors.lightGrayColor,
+                                        fontStyle:
+                                            AppRepo().user?.institutionName !=
+                                                    null
+                                                ? FontStyle.normal
+                                                : FontStyle.italic,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Gap(AppConfig().dimens.extraSmall),
                             ],
                           ),
                         ),
