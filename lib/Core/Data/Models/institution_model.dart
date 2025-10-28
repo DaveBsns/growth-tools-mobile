@@ -31,11 +31,11 @@ class Institutions {
     ),
     Institution(
       name: 'IPAI',
-      emailDomains: ['ipai.de', 'stud.ipai.de'],
+      emailDomains: ['ip.ai'],
     ),
     Institution(
       name: 'Technische Universität München (TUM)',
-      emailDomains: ['tum.de', 'stud.tum.de'],
+      emailDomains: ['tum.de'],
     ),
     Institution(
       name: 'Heilbronn 42',
@@ -43,11 +43,11 @@ class Institutions {
     ),
     Institution(
       name: 'DHBW',
-      emailDomains: ['dhbw.de', 'stud.dhbw.de'],
+      emailDomains: ['dhbw.de'],
     ),
     Institution(
       name: 'Fraunhofer ISI',
-      emailDomains: ['isi.fraunhofer.de', 'stud.isi.fraunhofer.de'],
+      emailDomains: ['isi.fraunhofer.de'],
     ),
     Institution(
       name: 'Fraunhofer IAO',

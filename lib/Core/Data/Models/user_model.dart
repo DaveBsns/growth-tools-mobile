@@ -165,18 +165,21 @@ class User {
 
     // Map email domains to institution names
     const domainToInstitution = {
+      // HHN - Hochschule Heilbronn
       'hs-heilbronn.de': 'HHN - Hochschule Heilbronn',
       'stud.hs-heilbronn.de': 'HHN - Hochschule Heilbronn',
-      'ipai.de': 'IPAI',
-      'stud.ipai.de': 'IPAI',
+      // IPAI (confirmed: ip.ai)
+      'ip.ai': 'IPAI',
+      // TUM (staff only)
       'tum.de': 'Technische Universität München (TUM)',
-      'stud.tum.de': 'Technische Universität München (TUM)',
+      // Heilbronn 42
       '42heilbronn.de': 'Heilbronn 42',
       'stud.42heilbronn.de': 'Heilbronn 42',
+      // DHBW (staff only)
       'dhbw.de': 'DHBW',
-      'stud.dhbw.de': 'DHBW',
+      // Fraunhofer ISI (staff only)
       'isi.fraunhofer.de': 'Fraunhofer ISI',
-      'stud.isi.fraunhofer.de': 'Fraunhofer ISI',
+      // Fraunhofer IAO
       'iao.fraunhofer.de': 'Fraunhofer IAO',
       'stud.iao.fraunhofer.de': 'Fraunhofer IAO',
     };
