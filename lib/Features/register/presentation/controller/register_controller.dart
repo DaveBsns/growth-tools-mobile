@@ -40,6 +40,8 @@ class RegisterController extends GetxController {
   final reEnterPasswordCtrl = TextEditingController();
   final firstnameCtrl = TextEditingController();
   final surnameCtrl = TextEditingController();
+  // TODO is SH: Added overview text controller for Step 3 bio field (max 500 chars)
+  final overviewCtrl = TextEditingController();
   final imagePicker = ImagePicker();
   final checkboxValue = Rx<CustomCheckBoxValue>(CustomCheckBoxValue.unchecked);
 
@@ -281,6 +283,8 @@ class RegisterController extends GetxController {
     // final firstname = firstnameCtrl.text;
     // final surname = surnameCtrl.text;
     final username = usernameCtrl.text.trim();
+    // TODO is SH: Trim overview and validate length before sending to backend
+    final overview = overviewCtrl.text.trim();
 
     loading.value = true;
     final response = await repo.updateUser(
@@ -293,6 +297,8 @@ class RegisterController extends GetxController {
       interstedTags: selectedTags.map((element) => element.id).toList(),
       studyPrograms:
           selectedStudyPrograms.map((element) => element.id).toList(),
+      // TODO is SH: Send overview to backend (empty string sent as null for cleaner API)
+      overview: overview.isEmpty ? null : overview,
     );
 
     if (response != null) {

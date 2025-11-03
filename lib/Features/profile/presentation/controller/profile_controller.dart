@@ -5,7 +5,7 @@ import 'package:idealize_new_version/Core/Data/Models/tag_model.dart';
 import 'package:idealize_new_version/Core/Data/Models/user_model.dart';
 import 'package:idealize_new_version/Core/Utils/extensions.dart';
 import 'package:idealize_new_version/Core/Utils/image_upload_utils.dart';
-import 'package:idealize_new_version/Features/Profile/domain/profile_repo.dart';
+import 'package:idealize_new_version/Features/profile/domain/profile_repo.dart';
 import 'package:idealize_new_version/Features/edit_profile/domain/edit_profile_repo.dart';
 import 'package:idealize_new_version/app_repo.dart';
 import 'package:image_picker/image_picker.dart';
@@ -92,6 +92,7 @@ class ProfileController extends GetxController {
       firstNameCtrl.text = AppRepo().user?.firstname ?? '';
       lastNameCtrl.text = AppRepo().user?.surname ?? '';
       recoveryEmailCtrl.text = AppRepo().user?.recoveryEmail ?? '';
+      overviewCtrl.text = AppRepo().user?.overview ?? ''; 
 
       selectedTags.clear();
       selectedTags.addAll(AppRepo().user?.interestedTags ?? []);
@@ -108,6 +109,7 @@ class ProfileController extends GetxController {
   final firstNameCtrl = TextEditingController();
   final lastNameCtrl = TextEditingController();
   final recoveryEmailCtrl = TextEditingController();
+  final overviewCtrl = TextEditingController(); 
   final imagePicker = ImagePicker();
 
   XFile? image;
@@ -179,6 +181,11 @@ class ProfileController extends GetxController {
       bodyParams['recoveryEmail'] = recoveryEmailCtrl.text;
     }
 
+  
+    if (overviewCtrl.text.trim().isNotEmpty) {
+      bodyParams['overview'] = overviewCtrl.text.trim();
+    }
+
     if (bodyParams.isNotEmpty) {
       AppRepo().showLoading();
 
@@ -189,7 +196,6 @@ class ProfileController extends GetxController {
         final userObject = User.fromJson(updatedUserData);
         AppRepo().user = userObject;
 
-        // profileViewModel.refresh();
         AppRepo().hideLoading();
         refreshUI();
         Get.back();

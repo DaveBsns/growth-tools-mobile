@@ -10,6 +10,7 @@ import 'package:idealize_new_version/Core/Constants/config.dart';
 import 'package:idealize_new_version/Core/I18n/messages.dart';
 import 'package:idealize_new_version/Features/register/presentation/controller/register_controller.dart';
 import '../../../../Core/Constants/colors.dart';
+import 'package:idealize_new_version/Core/Components/textfields_widget.dart';
 
 class RegisterThirdStepScreen extends GetView<RegisterController> {
   const RegisterThirdStepScreen({super.key});
@@ -123,6 +124,44 @@ class RegisterThirdStepScreen extends GetView<RegisterController> {
                 ),
               ),
             ),
+            Gap(AppConfig().dimens.large),
+            Text(
+              AppStrings.aboutYou.tr,
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
+            Gap(AppConfig().dimens.small),
+            Text(
+              AppStrings.aboutYouDescription.tr,
+              style: const TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+              ),
+            ),
+            Gap(AppConfig().dimens.medium),
+            CustomMultiLineTextField(
+              controller: controller.overviewCtrl,
+              labelText: AppStrings.aboutYouHint.tr,
+              maxCharcters: 500,
+              maxLines: 8,
+              onChanged: (value) {
+                if (value.trim().length > 500) {
+                  Get.snackbar(
+                    AppStrings.error.tr,
+                    AppStrings.aboutYouTooLong.tr,
+                    backgroundColor: Colors.red.shade100,
+                  );
+                  controller.overviewCtrl.text = value.substring(0, 500);
+                  controller.overviewCtrl.selection =
+                      TextSelection.fromPosition(
+                    TextPosition(offset: 500),
+                  );
+                }
+              },
+            ),
+            Gap(AppConfig().dimens.large),
           ],
         ).paddingAll(AppConfig().dimens.medium),
       ),

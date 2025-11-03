@@ -53,6 +53,7 @@ class RegisterRepositoryImpl implements RegisterRepository {
     List<String> interstedTags = const [],
     List<String> interstedCourses = const [],
     List<String> studyPrograms = const [],
+    String? overview,
   }) async {
     return await AuthenticationService().updateUser(
       firstname: firstname,
@@ -62,6 +63,7 @@ class RegisterRepositoryImpl implements RegisterRepository {
       interstedTags: interstedTags,
       interstedCourses: interstedCourses,
       studyPrograms: studyPrograms,
+      overview: overview,
     );
   }
 

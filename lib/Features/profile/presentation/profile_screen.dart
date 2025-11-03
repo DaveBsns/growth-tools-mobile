@@ -10,7 +10,7 @@ import 'package:idealize_new_version/Core/Constants/icons.dart';
 import 'package:idealize_new_version/Core/I18n/messages.dart';
 import 'package:idealize_new_version/Core/Utils/enums.dart';
 import 'package:idealize_new_version/Core/Utils/extensions.dart';
-import 'package:idealize_new_version/Features/Profile/presentation/controller/Profile_controller.dart';
+import 'package:idealize_new_version/Features/profile/presentation/controller/profile_controller.dart';
 import 'package:idealize_new_version/Features/tag_selector/presentation/tag_selector_screen.dart';
 import 'package:idealize_new_version/app_repo.dart';
 import 'package:idealize_new_version/gen/assets.gen.dart';
@@ -143,6 +143,40 @@ class ProfileScreen extends GetView<ProfileController> {
                                   ),
                                 ],
                               ),
+                              Gap(AppConfig().dimens.extraSmall),
+                              // TODO is SH: Display user aboutYou/bio if available
+                              if (AppRepo().user?.overview != null &&
+                                  AppRepo().user!.overview!.isNotEmpty)
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      AppStrings.aboutYou.tr,
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppConfig().colors.primaryColor,
+                                      ),
+                                    ),
+                                    Gap(AppConfig().dimens.extraSmall),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16.0),
+                                      child: Text(
+                                        AppRepo().user!.overview!,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                          color:
+                                              AppConfig().colors.darkGrayColor,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                        maxLines: 5,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               Gap(AppConfig().dimens.extraSmall),
                             ],
                           ),

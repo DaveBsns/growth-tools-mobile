@@ -89,6 +89,12 @@ class AppStrings {
   static const String institution = "institution";
   static const String selectInstitution = "selectInstitution";
   static const String institutionEmailHint = "institutionEmailHint";
+
+  static const String aboutYou = "aboutYou";
+  static const String aboutYouHint = "aboutYouHint";
+  static const String aboutYouTooLong = "aboutYouTooLong";
+  static const String aboutYouDescription = "aboutYouDescription";
+  static const String aboutUser = "aboutUser";
   static const String changePicture = "changePicture";
   static const String editProfile = "editProfile";
   static const String cancel = "cancel";

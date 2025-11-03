@@ -276,6 +276,13 @@ class EnLanguageData extends LanguageDataKeys {
         AppStrings.selectInstitution: "Select your institution",
         AppStrings.institutionEmailHint:
             "Please use your institutional email address",
+        // TODO is SH: Changed from overview to aboutYou for better UX
+        AppStrings.aboutYou: "About You",
+        AppStrings.aboutYouHint: "Tell us about yourself (max 500 characters)",
+        AppStrings.aboutYouTooLong: "About You must be 500 characters or less",
+        AppStrings.aboutYouDescription:
+            "Share a bit about yourself, your interests, or what you're working on. This helps others connect with you better!",
+        AppStrings.aboutUser: "About @name",
         AppStrings.deleteProject: "Delete Project",
         AppStrings.deleteProjectContent:
             "Are you sure you want to delete @projectKeyword? This action cannot be undone.",

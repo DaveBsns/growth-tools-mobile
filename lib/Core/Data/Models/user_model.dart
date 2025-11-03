@@ -21,6 +21,9 @@ class User {
   final bool? pendingUser;
   final String? institution;
 
+  final String? overview;
+
+
   User({
     required this.id,
     required this.email,
@@ -39,6 +42,7 @@ class User {
     this.studyPrograms = const [],
     this.pendingUser,
     this.institution,
+    this.overview,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -57,6 +61,8 @@ class User {
       refreshToken: json['refreshToken'],
       username: json['username'],
       institution: json['institution'],
+      // TODO is SH: Parse aboutYou field from backend response (backward compatible - handles null)
+      overview: json['overview'],
       profilePicture: (json['profilePicture'] != null &&
               json['profilePicture'] is Map<String, dynamic>)
           ? ProjectFile.fromJson(json['profilePicture'])
@@ -96,6 +102,8 @@ class User {
       refreshToken: refreshToken ?? json['refreshToken'],
       username: json['username'],
       institution: json['institution'],
+      // TODO is SH: Parse aboutYou from local cache for offline persistence
+      overview: json['overview'],
       profilePicture: (json['profilePicture'] != null &&
               json['profilePicture'] is Map<String, dynamic>)
           ? ProjectFile.fromJson(json['profilePicture'])

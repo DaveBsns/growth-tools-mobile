@@ -85,6 +85,7 @@ class AuthenticationService extends ServicesHelper {
     List<String> interstedTags = const [],
     List<String> interstedCourses = const [],
     List<String> studyPrograms = const [],
+    String? overview,
   }) async {
     final Map<String, dynamic> data = {};
 
@@ -98,6 +99,9 @@ class AuthenticationService extends ServicesHelper {
 
     if (username != null) {
       data['username'] = username;
+    }
+    if (overview != null) {
+      data['overview'] = overview;
     }
 
     if (profilePicture != null) {

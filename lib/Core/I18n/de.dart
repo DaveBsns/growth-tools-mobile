@@ -112,6 +112,14 @@ class DeLanguageData extends LanguageDataKeys {
         AppStrings.selectInstitution: "Wählen Sie Ihre Institution",
         AppStrings.institutionEmailHint:
             "Bitte verwenden Sie Ihre institutionelle E-Mail-Adresse",
+        // TODO is SH: German translations for aboutYou field
+        AppStrings.aboutYou: "Über Sie",
+        AppStrings.aboutYouHint: "Erzählen Sie uns von sich (max. 500 Zeichen)",
+        AppStrings.aboutYouTooLong:
+            "Über Sie darf maximal 500 Zeichen lang sein",
+        AppStrings.aboutYouDescription:
+            "Teilen Sie hier etwas mehr über sich mit - Ihre Interessen oder aktuelle Themen, an welchen Sie arbeiten. Das hilft anderen, Sie besser kennenzulernen!",
+        AppStrings.aboutUser: "Über @name",
         AppStrings.deleteAccount: "Account löschen",
         AppStrings.deleteMaterial: "Material löschen",
         AppStrings.logout: "Abmelden",

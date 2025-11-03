@@ -30,6 +30,7 @@ abstract class RegisterRepository {
     List<String> interstedTags = const [],
     List<String> interstedCourses = const [],
     List<String> studyPrograms = const [],
+    String? overview,
   });
 
   Future<void> updateUserFromLocalCache(Map<String, dynamic> data);

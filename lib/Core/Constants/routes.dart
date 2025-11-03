@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:idealize_new_version/Features/Base/presentation/screens/chat_screen.dart';
-import 'package:idealize_new_version/Features/Edit_Profile/presentation/edit_profile_screen.dart';
+import 'package:idealize_new_version/Features/edit_profile/presentation/edit_profile_screen.dart';
 import 'package:idealize_new_version/Features/Splash/presentation/splash_screen.dart';
 import 'package:idealize_new_version/Features/authentication/presentation/screens/reset_password_screen.dart';
 import 'package:idealize_new_version/Features/delete_account/presentation/binding/delete_account_binding.dart';
@@ -11,7 +11,7 @@ import 'package:idealize_new_version/Features/delete_account/presentation/pages/
 import 'package:idealize_new_version/Features/project_details/presentation/binding/project_details_binding.dart';
 import 'package:idealize_new_version/Features/project_details/presentation/project_details_screen.dart';
 
-import 'package:idealize_new_version/Features/Profile/presentation/profile_screen.dart';
+import 'package:idealize_new_version/Features/profile/presentation/profile_screen.dart';
 import 'package:idealize_new_version/Features/notification/presentation/notification_screen.dart';
 import 'package:idealize_new_version/Features/my_projects/presentation/binding/my_projects_binding.dart';
 import 'package:idealize_new_version/Features/my_projects/presentation/my_projects_screen.dart';
@@ -135,6 +135,7 @@ class AppRoutes {
       GetPage(
         name: editProfile,
         page: () => const EditProfileScreen(),
+        binding: BaseBinding(),
       ),
       GetPage(name: textSizeView, page: () => const TextSizeView()),
       GetPage(

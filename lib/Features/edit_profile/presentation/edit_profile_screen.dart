@@ -5,9 +5,10 @@ import 'package:get/get.dart';
 import 'package:idealize_new_version/Core/Components/buttons_widget.dart';
 import 'package:idealize_new_version/Core/Components/image_loader_widget.dart';
 import 'package:idealize_new_version/Core/Components/image_picker_btmsheet_widget.dart';
+import 'package:idealize_new_version/Core/Components/textfields_widget.dart';
 import 'package:idealize_new_version/Core/Constants/config.dart';
 import 'package:idealize_new_version/Core/I18n/messages.dart';
-import 'package:idealize_new_version/Features/Profile/presentation/controller/Profile_controller.dart';
+import 'package:idealize_new_version/Features/profile/presentation/controller/profile_controller.dart';
 import 'package:idealize_new_version/Features/edit_profile/presentation/widgets/row_widget.dart';
 import 'package:idealize_new_version/app_repo.dart';
 import 'package:idealize_new_version/gen/assets.gen.dart';
@@ -31,7 +32,6 @@ class EditProfileScreen extends GetView<ProfileController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 GetBuilder<ProfileController>(
-                  init: controller,
                   builder: (viewModel) => controller.image != null
                       ? Container(
                           height: 170,
@@ -135,6 +135,55 @@ class EditProfileScreen extends GetView<ProfileController> {
                   lable: AppStrings.recoveryEmail.tr,
                   lableValue: AppStrings.recoveryEmail.tr,
                   controller: controller.recoveryEmailCtrl,
+                ),
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppStrings.aboutYou.tr,
+                      textAlign: TextAlign.start,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Gap(AppConfig().dimens.medium),
+                    Text(
+                      AppStrings.aboutYouDescription.tr,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                      ),
+                    ),
+                    Gap(AppConfig().dimens.medium),
+                    GetBuilder<ProfileController>(
+                      builder: (controller) => CustomMultiLineTextField(
+                        controller: controller.overviewCtrl,
+                        labelText: AppStrings.aboutYouHint.tr,
+                        maxCharcters: 500,
+                        maxLines: 8,
+                        onChanged: (value) {
+                          if (value.trim().length > 500) {
+                            Get.snackbar(
+                              AppStrings.error.tr,
+                              AppStrings.aboutYouTooLong.tr,
+                              backgroundColor: Colors.red.shade100,
+                            );
+                            controller.overviewCtrl.text =
+                                value.substring(0, 500);
+                            controller.overviewCtrl.selection =
+                                TextSelection.fromPosition(
+                              const TextPosition(offset: 500),
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                    Gap(AppConfig().dimens.large),
+                  ],
+                ).paddingAll(
+                  AppConfig().dimens.medium,
                 ),
               ],
             ).paddingAll(

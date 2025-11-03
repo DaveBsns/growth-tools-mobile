@@ -151,6 +151,42 @@ class UserSuggestionProfileScreen
                                       ),
                                     ],
                                   ),
+                                  Gap(AppConfig().dimens.large),
+                                  if (state.user?.overview != null &&
+                                      state.user!.overview!.isNotEmpty)
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          AppStrings.aboutUser.tr.replaceAll(
+                                              '@name',
+                                              state.user?.displayName ?? ''),
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600,
+                                            color:
+                                                AppConfig().colors.primaryColor,
+                                          ),
+                                        ),
+                                        Gap(AppConfig().dimens.extraSmall),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 16.0),
+                                          child: Text(
+                                            state.user!.overview!,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                              color: AppConfig()
+                                                  .colors
+                                                  .darkGrayColor,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   Gap(AppConfig().dimens.extraSmall),
                                 ],
                               ),
