@@ -5,8 +5,13 @@ class CustomDropdownWidget extends StatelessWidget {
   final List<String> items;
   final Function(String)? onSelectedItem;
   final String? initialValue;
+  final String? hintText;
   const CustomDropdownWidget(
-      {super.key, required this.items, this.onSelectedItem, this.initialValue});
+      {super.key,
+      required this.items,
+      this.onSelectedItem,
+      this.initialValue,
+      this.hintText});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +60,8 @@ class CustomDropdownWidget extends StatelessWidget {
               onSelectedItem!(value);
             }
           },
-          initialSelection: initialValue ?? items.first,
+          hintText: hintText,
+          initialSelection: initialValue,
           menuStyle: MenuStyle(
               backgroundColor:
                   WidgetStateColor.resolveWith((states) => Colors.white))),

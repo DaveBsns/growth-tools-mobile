@@ -95,6 +95,7 @@ class RegisterFirstStepScreen extends GetView<RegisterController> {
             Gap(AppConfig().dimens.small),
             Obx(() => CustomDropdownWidget(
                   items: Institutions.names,
+                  hintText: AppStrings.selectInstitution.tr,
                   initialValue: controller.selectedInstitution.value?.name,
                   onSelectedItem: (String selectedName) {
                     final institution = Institutions.getByName(selectedName);
