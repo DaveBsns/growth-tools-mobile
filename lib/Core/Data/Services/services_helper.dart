@@ -206,6 +206,7 @@ class ServicesHelper {
         return null;
       }
 
+      // TODO SH: Attempt to refresh the token when access token expires
       final updatedUserStr = await request(
         '${AppConfig().baseURL}/users/refresh-token',
         serviceType: ServiceType.post,
@@ -216,11 +217,46 @@ class ServicesHelper {
         },
       );
 
+      // TODO SH: If refresh token is also expired (updatedUserStr is null), logout and route directly to login
+      if (updatedUserStr == null) {
+        AppRepo().hideLoading();
+
+        // TODO SH: Clear user authentication data from secure storage
+        await AppRepo()
+            .secureLocalCache
+            .write(AppConfig().localSecureCacheKeys.userObject, '');
+        await AppRepo()
+            .secureLocalCache
+            .write(AppConfig().localSecureCacheKeys.jwtToken, '');
+        await AppRepo()
+            .secureLocalCache
+            .write(AppConfig().localSecureCacheKeys.jwtRefreshToken, '');
+
+        // TODO SH: Update login status (preserving language preferences)
+        AppRepo().localCache.write(
+              AppConfig().localCacheKeys.userLoggedInStatus,
+              2, // UserStatus.loggedOut
+            );
+
+        // TODO SH: Clear in-memory data (tags and users will be refetched after login via refillAllTheData())
+        AppRepo().user = null;
+        AppRepo().jwtToken = null;
+        AppRepo().jwtRefreshToken = null;
+        AppRepo().savedProjectsList.clear();
+        AppRepo().updatingProjectsList.clear();
+        AppRepo().tags.clear();
+        AppRepo().users.clear();
+
+        // TODO SH: Route directly to login screen instead of splash
+        Get.offAllNamed(AppConfig().routes.externalAuth);
+        return null;
+      }
+
       await AppRepo().secureLocalCache.write(
           AppConfig().localSecureCacheKeys.userObject,
           jsonEncode(updatedUserStr));
 
-      final updatedUserObject = User.fromLocalCacheJson(updatedUserStr!);
+      final updatedUserObject = User.fromLocalCacheJson(updatedUserStr);
       LocalCacheHelper().write(
           AppConfig().localSecureCacheKeys.jwtToken, updatedUserObject.token);
       LocalCacheHelper().write(AppConfig().localSecureCacheKeys.jwtRefreshToken,
@@ -245,6 +281,45 @@ class ServicesHelper {
 
       final message = jsonDecode(response.body);
 
+      // TODO SH: If 403 error is specifically about token expiration
+      // logout user and route directly to login screen
+      final errorTitle = message['error']?.toString().toLowerCase() ?? '';
+      final errorMessage = message['message']?.toString().toLowerCase() ?? '';
+
+      if ((errorTitle.contains('forbidden') &&
+              errorMessage.contains('token')) ||
+          errorMessage.contains('expired')) {
+        // TODO SH: Clear user authentication data from secure storage
+        await AppRepo()
+            .secureLocalCache
+            .write(AppConfig().localSecureCacheKeys.userObject, '');
+        await AppRepo()
+            .secureLocalCache
+            .write(AppConfig().localSecureCacheKeys.jwtToken, '');
+        await AppRepo()
+            .secureLocalCache
+            .write(AppConfig().localSecureCacheKeys.jwtRefreshToken, '');
+
+        // TODO SH: Update login status (preserving language preferences)
+        AppRepo().localCache.write(
+              AppConfig().localCacheKeys.userLoggedInStatus,
+              2, // UserStatus.loggedOut
+            );
+
+        // TODO SH: Clear in-memory data (tags and users will be refetched after login via refillAllTheData())
+        AppRepo().user = null;
+        AppRepo().jwtToken = null;
+        AppRepo().jwtRefreshToken = null;
+        AppRepo().savedProjectsList.clear();
+        AppRepo().updatingProjectsList.clear();
+        AppRepo().tags.clear();
+        AppRepo().users.clear();
+
+        Get.offAllNamed(AppConfig().routes.externalAuth);
+        return null;
+      }
+
+      // TODO SH: For other 403 errors (e.g., user blocked by admin), show the forbidden screen
       Get.offAll(
         () => UserForbiddenScreen(
           title: message['error'] ?? '',
