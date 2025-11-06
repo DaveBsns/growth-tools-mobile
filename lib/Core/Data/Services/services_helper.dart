@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:idealize_new_version/Core/Data/LocalCache/local_cache_helper.dart';
 import 'package:idealize_new_version/Core/Data/Models/user_model.dart';
 import 'package:idealize_new_version/Core/Utils/enums.dart';
 import 'package:idealize_new_version/Features/user_forbidden_screen.dart';
@@ -206,7 +205,7 @@ class ServicesHelper {
         return null;
       }
 
-      // TODO SH: Attempt to refresh the token when access token expires
+      // TODO SH: Attempt token refresh when access token expires
       final updatedUserStr = await request(
         '${AppConfig().baseURL}/users/refresh-token',
         serviceType: ServiceType.post,
@@ -217,11 +216,10 @@ class ServicesHelper {
         },
       );
 
-      // TODO SH: If refresh token is also expired (updatedUserStr is null), logout and route directly to login
+      // TODO SH: If refresh fails, logout user and route to login
       if (updatedUserStr == null) {
         AppRepo().hideLoading();
 
-        // TODO SH: Clear user authentication data from secure storage
         await AppRepo()
             .secureLocalCache
             .write(AppConfig().localSecureCacheKeys.userObject, '');
@@ -232,13 +230,11 @@ class ServicesHelper {
             .secureLocalCache
             .write(AppConfig().localSecureCacheKeys.jwtRefreshToken, '');
 
-        // TODO SH: Update login status (preserving language preferences)
         AppRepo().localCache.write(
               AppConfig().localCacheKeys.userLoggedInStatus,
               2, // UserStatus.loggedOut
             );
 
-        // TODO SH: Clear in-memory data (tags and users will be refetched after login via refillAllTheData())
         AppRepo().user = null;
         AppRepo().jwtToken = null;
         AppRepo().jwtRefreshToken = null;
@@ -247,29 +243,56 @@ class ServicesHelper {
         AppRepo().tags.clear();
         AppRepo().users.clear();
 
-        // TODO SH: Route directly to login screen instead of splash
         Get.offAllNamed(AppConfig().routes.externalAuth);
         return null;
       }
 
+      // TODO SH: Validate refresh response contains valid tokens
+      final updatedUserObject = User.fromLocalCacheJson(updatedUserStr);
+
+      if (updatedUserObject.token == null ||
+          updatedUserObject.token!.isEmpty ||
+          updatedUserObject.refreshToken == null ||
+          updatedUserObject.refreshToken!.isEmpty) {
+        AppRepo().hideLoading();
+        await AppRepo()
+            .secureLocalCache
+            .write(AppConfig().localSecureCacheKeys.userObject, '');
+        await AppRepo()
+            .secureLocalCache
+            .write(AppConfig().localSecureCacheKeys.jwtToken, '');
+        await AppRepo()
+            .secureLocalCache
+            .write(AppConfig().localSecureCacheKeys.jwtRefreshToken, '');
+        AppRepo()
+            .localCache
+            .write(AppConfig().localCacheKeys.userLoggedInStatus, 2);
+        AppRepo().user = null;
+        AppRepo().jwtToken = null;
+        AppRepo().jwtRefreshToken = null;
+        AppRepo().savedProjectsList.clear();
+        AppRepo().updatingProjectsList.clear();
+        AppRepo().tags.clear();
+        AppRepo().users.clear();
+        Get.offAllNamed(AppConfig().routes.externalAuth);
+        return null;
+      }
+
+      // TODO SH: Store new tokens in secure storage
       await AppRepo().secureLocalCache.write(
           AppConfig().localSecureCacheKeys.userObject,
           jsonEncode(updatedUserStr));
 
-      final updatedUserObject = User.fromLocalCacheJson(updatedUserStr);
-      LocalCacheHelper().write(
+      await AppRepo().secureLocalCache.write(
           AppConfig().localSecureCacheKeys.jwtToken, updatedUserObject.token);
-      LocalCacheHelper().write(AppConfig().localSecureCacheKeys.jwtRefreshToken,
+
+      await AppRepo().secureLocalCache.write(
+          AppConfig().localSecureCacheKeys.jwtRefreshToken,
           updatedUserObject.refreshToken);
 
       AppRepo().user = updatedUserObject;
       AppRepo().jwtToken = updatedUserObject.token;
       AppRepo().jwtRefreshToken = updatedUserObject.refreshToken;
-
-      // print('===========>');
-      // print(AppRepo().jwtRefreshToken);
-      // print(AppRepo().jwtToken);
-      // print('<===========');
 
       return await originalRequest!();
     } else if (response.statusCode == 429) {
@@ -281,45 +304,98 @@ class ServicesHelper {
 
       final message = jsonDecode(response.body);
 
-      // TODO SH: If 403 error is specifically about token expiration
-      // logout user and route directly to login screen
       final errorTitle = message['error']?.toString().toLowerCase() ?? '';
       final errorMessage = message['message']?.toString().toLowerCase() ?? '';
 
+      // TODO SH: If 403 is token-related, attempt refresh (backend returns 403 for expired tokens on some endpoints)
       if ((errorTitle.contains('forbidden') &&
               errorMessage.contains('token')) ||
-          errorMessage.contains('expired')) {
-        // TODO SH: Clear user authentication data from secure storage
-        await AppRepo()
-            .secureLocalCache
-            .write(AppConfig().localSecureCacheKeys.userObject, '');
-        await AppRepo()
-            .secureLocalCache
-            .write(AppConfig().localSecureCacheKeys.jwtToken, '');
-        await AppRepo()
-            .secureLocalCache
-            .write(AppConfig().localSecureCacheKeys.jwtRefreshToken, '');
+          errorMessage.contains('expired') ||
+          errorMessage.contains('token is expired')) {
+        final updatedUserStr = await request(
+          '${AppConfig().baseURL}/users/refresh-token',
+          serviceType: ServiceType.post,
+          requiredDefaultHeader: false,
+          headers: {
+            'refresh-token': AppRepo().jwtRefreshToken ?? '',
+            'expired-token': AppRepo().jwtToken ?? '',
+          },
+        );
 
-        // TODO SH: Update login status (preserving language preferences)
-        AppRepo().localCache.write(
-              AppConfig().localCacheKeys.userLoggedInStatus,
-              2, // UserStatus.loggedOut
-            );
+        if (updatedUserStr == null) {
+          await AppRepo()
+              .secureLocalCache
+              .write(AppConfig().localSecureCacheKeys.userObject, '');
+          await AppRepo()
+              .secureLocalCache
+              .write(AppConfig().localSecureCacheKeys.jwtToken, '');
+          await AppRepo()
+              .secureLocalCache
+              .write(AppConfig().localSecureCacheKeys.jwtRefreshToken, '');
 
-        // TODO SH: Clear in-memory data (tags and users will be refetched after login via refillAllTheData())
-        AppRepo().user = null;
-        AppRepo().jwtToken = null;
-        AppRepo().jwtRefreshToken = null;
-        AppRepo().savedProjectsList.clear();
-        AppRepo().updatingProjectsList.clear();
-        AppRepo().tags.clear();
-        AppRepo().users.clear();
+          AppRepo()
+              .localCache
+              .write(AppConfig().localCacheKeys.userLoggedInStatus, 2);
 
-        Get.offAllNamed(AppConfig().routes.externalAuth);
-        return null;
+          AppRepo().user = null;
+          AppRepo().jwtToken = null;
+          AppRepo().jwtRefreshToken = null;
+          AppRepo().savedProjectsList.clear();
+          AppRepo().updatingProjectsList.clear();
+          AppRepo().tags.clear();
+          AppRepo().users.clear();
+
+          Get.offAllNamed(AppConfig().routes.externalAuth);
+          return null;
+        }
+
+        final updatedUserObject = User.fromLocalCacheJson(updatedUserStr);
+
+        if (updatedUserObject.token == null ||
+            updatedUserObject.token!.isEmpty ||
+            updatedUserObject.refreshToken == null ||
+            updatedUserObject.refreshToken!.isEmpty) {
+          await AppRepo()
+              .secureLocalCache
+              .write(AppConfig().localSecureCacheKeys.userObject, '');
+          await AppRepo()
+              .secureLocalCache
+              .write(AppConfig().localSecureCacheKeys.jwtToken, '');
+          await AppRepo()
+              .secureLocalCache
+              .write(AppConfig().localSecureCacheKeys.jwtRefreshToken, '');
+          AppRepo()
+              .localCache
+              .write(AppConfig().localCacheKeys.userLoggedInStatus, 2);
+          AppRepo().user = null;
+          AppRepo().jwtToken = null;
+          AppRepo().jwtRefreshToken = null;
+          AppRepo().savedProjectsList.clear();
+          AppRepo().updatingProjectsList.clear();
+          AppRepo().tags.clear();
+          AppRepo().users.clear();
+          Get.offAllNamed(AppConfig().routes.externalAuth);
+          return null;
+        }
+
+        await AppRepo().secureLocalCache.write(
+            AppConfig().localSecureCacheKeys.userObject,
+            jsonEncode(updatedUserStr));
+
+        await AppRepo().secureLocalCache.write(
+            AppConfig().localSecureCacheKeys.jwtToken, updatedUserObject.token);
+
+        await AppRepo().secureLocalCache.write(
+            AppConfig().localSecureCacheKeys.jwtRefreshToken,
+            updatedUserObject.refreshToken);
+
+        AppRepo().user = updatedUserObject;
+        AppRepo().jwtToken = updatedUserObject.token;
+        AppRepo().jwtRefreshToken = updatedUserObject.refreshToken;
+
+        return await originalRequest!();
       }
 
-      // TODO SH: For other 403 errors (e.g., user blocked by admin), show the forbidden screen
       Get.offAll(
         () => UserForbiddenScreen(
           title: message['error'] ?? '',
