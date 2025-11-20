@@ -18,6 +18,7 @@ class RegisterRepositoryImpl implements RegisterRepository {
     required String email,
     required String recoveryEmail,
     required String password,
+    String? institution,
   }) async {
     return await AuthenticationService().createUser(
       firstname: firstname,
@@ -25,6 +26,7 @@ class RegisterRepositoryImpl implements RegisterRepository {
       email: email,
       recoveryEmail: recoveryEmail,
       password: password,
+      institution: institution,
     );
   }
 
@@ -51,6 +53,7 @@ class RegisterRepositoryImpl implements RegisterRepository {
     List<String> interstedTags = const [],
     List<String> interstedCourses = const [],
     List<String> studyPrograms = const [],
+    String? overview,
   }) async {
     return await AuthenticationService().updateUser(
       firstname: firstname,
@@ -60,6 +63,7 @@ class RegisterRepositoryImpl implements RegisterRepository {
       interstedTags: interstedTags,
       interstedCourses: interstedCourses,
       studyPrograms: studyPrograms,
+      overview: overview,
     );
   }
 

@@ -113,7 +113,7 @@ class AddLinksContainer extends StatelessWidget {
               CustomTextField(
                 labelText: AppStrings.addLinkTitle.tr,
                 iconColor: AppColors().lightGrayColor,
-                keyboardType: TextInputType.url,
+                keyboardType: TextInputType.emailAddress,
                 icon: Iconsax.edit_2,
                 controller: labelCtrl,
                 onChanged: onLinkNameChanged,
@@ -127,7 +127,7 @@ class AddLinksContainer extends StatelessWidget {
               ),
               CustomTextField(
                 labelText: AppStrings.addLinkUrl.tr,
-                keyboardType: TextInputType.url,
+                keyboardType: TextInputType.emailAddress,
                 iconColor: AppColors().lightGrayColor,
                 icon: Iconsax.edit_2,
                 controller: linkCtrl,

@@ -91,6 +91,14 @@ class ProjectDetailsController extends GetxController {
     archiveId.value = project!.archiveId;
     commentCtrl.addListener(() {
       isCommentEmpty.value = commentCtrl.text.trim().isEmpty;
+
+      // Show warning when user reaches 300 characters
+      if (commentCtrl.text.length == 300) {
+        AppRepo().showSnackbar(
+          label: AppStrings.warning.tr,
+          text: AppStrings.commentTooLong.tr,
+        );
+      }
     });
 
     if (scrolableToComments) {
@@ -124,11 +132,31 @@ class ProjectDetailsController extends GetxController {
   }
 
   Future<void> comment() async {
-    if (commentCtrl.text.trim().isNotEmpty) {
+    final trimmedComment = commentCtrl.text.trim();
+
+    // Validate minimum length (2 characters)
+    if (trimmedComment.length < 2) {
+      AppRepo().showSnackbar(
+        label: AppStrings.warning.tr,
+        text: AppStrings.commentTooShort.tr,
+      );
+      return;
+    }
+
+    // Validate maximum length (300 characters)
+    if (trimmedComment.length > 300) {
+      AppRepo().showSnackbar(
+        label: AppStrings.warning.tr,
+        text: AppStrings.commentTooLong.tr,
+      );
+      return;
+    }
+
+    if (trimmedComment.isNotEmpty) {
       final status = await repo.leaveComment(
         project!.id,
         AppRepo().user!.id,
-        content: commentCtrl.text,
+        content: trimmedComment,
         parentCommentId:
             replyCommentId.value.isNotEmpty ? replyCommentId.value : null,
         projectOwnerId: project!.owner!.id,

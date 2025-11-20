@@ -37,7 +37,6 @@ class NotificationController extends GetxController {
     AppRepo().showLoading();
     final result = await repo.clear();
     if (result) {
-      notifications.clear();
       await fetchNotifications();
       notifications.refresh();
     }

@@ -27,7 +27,11 @@ class DeLanguageData extends LanguageDataKeys {
         AppStrings.profile: "Profil",
         AppStrings.settings: "Einstellungen",
         AppStrings.projectTitle: "Projekttitel:*",
-        AppStrings.projectTitleHint: "Geben Sie Ihrem Projekt einen Titel",
+        AppStrings.projectTitleHint:
+            "Geben Sie Ihrem Projekt einen Titel (3-50 Zeichen)",
+        AppStrings.projectTitleRangeError:
+            "Der Titel muss zwischen 3 und 50 Zeichen lang sein",
+        AppStrings.projectTitleCharacterRange: "3-50 Zeichen",
         AppStrings.desciption: "Beschreibung:",
         AppStrings.descriptionHint: "Gib eine Beschreibung ein",
         AppStrings.saveAsDraft: "Als Entwurf speichern",
@@ -102,6 +106,19 @@ class DeLanguageData extends LanguageDataKeys {
         AppStrings.privacy: "Privatsphäre",
         AppStrings.security: "Sicherheit",
         AppStrings.delete: "Löschen",
+        AppStrings.deletedUser: "Gelöschter Benutzer",
+        AppStrings.deletedUserShort: "Gelöscht",
+        AppStrings.institution: "Institution",
+        AppStrings.selectInstitution: "Wählen Sie Ihre Institution",
+        AppStrings.institutionEmailHint:
+            "Bitte verwenden Sie Ihre institutionelle E-Mail-Adresse",
+        AppStrings.aboutYou: "Über Sie",
+        AppStrings.aboutYouHint: "Erzählen Sie uns von sich (max. 500 Zeichen)",
+        AppStrings.aboutYouTooLong:
+            "Über Sie darf maximal 500 Zeichen lang sein",
+        AppStrings.aboutYouDescription:
+            "Teilen Sie hier etwas mehr über sich mit - Ihre Interessen oder aktuelle Themen, an welchen Sie arbeiten. Das hilft anderen, Sie besser kennenzulernen!",
+        AppStrings.aboutUser: "Über @name",
         AppStrings.deleteAccount: "Account löschen",
         AppStrings.deleteMaterial: "Material löschen",
         AppStrings.logout: "Abmelden",
@@ -183,6 +200,10 @@ class DeLanguageData extends LanguageDataKeys {
         AppStrings.emptyNotification: "Keine Benachrichtigungen.",
         AppStrings.notification: "Benachrichtigungen",
         AppStrings.clearAll: "Alle löschen",
+        AppStrings.clearNotificationsWarning:
+            "⚠️ {count} ausstehende Anfrage(n) behalten - bitte antworten Sie darauf",
+        AppStrings.clearOnlyRead:
+            "Benachrichtigungen gelöscht (ausstehende Anfragen behalten)",
         AppStrings.responseSent: "Antwort gesendet",
         AppStrings.responseSentMsg: "Antwort gesendet",
         AppStrings.firstNameHint: "Ihr Vorname",
@@ -231,6 +252,10 @@ class DeLanguageData extends LanguageDataKeys {
             "Die Datei @keyword3 ist zu groß oder ein nicht unterstütztes Format",
         AppStrings.noFileSelected: "Es wurde keine Datei ausgewählt",
         AppStrings.writeAComment: "Schreib einen Kommentar",
+        AppStrings.commentTooShort:
+            "Kommentar muss mindestens 2 Zeichen lang sein",
+        AppStrings.commentTooLong:
+            "Kommentar darf maximal 300 Zeichen lang sein",
         AppStrings.noUsersToShow:
             "Es gibt keine Benutzer, die angezeigt werden können.\nBitte prüfen Sie später.",
         AppStrings.emptyHere: "Hier ist es leer!",
@@ -359,6 +384,8 @@ class DeLanguageData extends LanguageDataKeys {
         AppStrings.dailogAddTagsTitle: "Tags hinzufügen",
         AppStrings.dailogAddTagsContent:
             "Fügen Sie Tags zum Projekt hinzu, um es einfacher zu finden.",
+        AppStrings.dailogProjectTitleInfo:
+            "Der Projekttitel sollte zwischen 3 und 50 Zeichen lang sein. Wählen Sie einen klaren und aussagekräftigen Titel, der Ihr Projekt gut repräsentiert.",
         AppStrings.dailogAddCoursesTitle: "Kurse hinzufügen",
         AppStrings.dailogAddCoursesContent:
             "Fügen Sie Kurse zum Projekt hinzu, um es einfacher zu finden.",

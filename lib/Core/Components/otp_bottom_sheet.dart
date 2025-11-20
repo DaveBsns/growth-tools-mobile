@@ -34,6 +34,12 @@ class OtpController extends GetxController {
     _timer?.cancel();
     super.onClose();
   }
+
+  String get formattedTime {
+    int minutes = timeLeft.value ~/ 60;
+    int seconds = timeLeft.value % 60;
+    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+  }
 }
 
 class OtpBottomSheet extends StatelessWidget {
@@ -93,12 +99,7 @@ class OtpBottomSheet extends StatelessWidget {
               ),
             ).paddingSymmetric(horizontal: 30),
             Gap(AppConfig().dimens.large),
-            Text(
-                AppStrings.timeLeft.trParams(
-                  {
-                    'time': controller.timeLeft.value.toString(),
-                  },
-                ),
+            Text(controller.formattedTime,
                 style: TextStyle(
                     color: AppConfig().colors.txtColor,
                     fontSize: 14,

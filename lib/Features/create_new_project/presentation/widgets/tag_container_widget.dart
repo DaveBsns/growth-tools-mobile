@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:idealize_new_version/Core/Components/buttons_widget.dart';
+import 'package:idealize_new_version/Core/Components/info_icon_widget.dart';
 import 'package:idealize_new_version/Core/Constants/colors.dart';
 import 'package:idealize_new_version/Core/Constants/config.dart';
 import 'package:idealize_new_version/Core/Constants/icons.dart';
@@ -57,21 +58,9 @@ class TagsContainer extends StatelessWidget {
                               fontWeight: FontWeight.w600,
                               color: Colors.black),
                         ),
-                        GestureDetector(
-                          onTap: () => AppRepo().showCustomAlertDialog(
-                            title: AppStrings.dailogAddTagsTitle.tr,
-                            content: AppStrings.dailogAddTagsContent.tr,
-                            buttonText: AppStrings.okay.tr,
-                            buttonTextStyle: TextStyle(
-                                color: AppConfig().colors.primaryColor,
-                                fontWeight: FontWeight.w700),
-                            buttonColor: AppConfig().colors.secondaryColor,
-                          ),
-                          child: Icon(
-                            Iconsax.info_circle,
-                            color: AppConfig().colors.lightGrayColor,
-                            size: 22,
-                          ),
+                        InfoIconWidget(
+                          title: AppStrings.dailogAddTagsTitle.tr,
+                          content: AppStrings.dailogAddTagsContent.tr,
                         ),
                         Gap(AppConfig().dimens.small),
                       ],

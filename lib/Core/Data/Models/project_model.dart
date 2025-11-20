@@ -208,4 +208,31 @@ class ProjectUser {
       userType: json['userType'] ?? 'student',
     );
   }
+
+  /// Returns the full name of the user, or "Deleted User" if the user data is anonymized/null
+  String get displayName {
+    final first = firstName.trim();
+    final last = lastName.trim();
+
+    // Check if both names are empty, null, or literally "null"
+    if ((first.isEmpty || first.toLowerCase() == 'null') &&
+        (last.isEmpty || last.toLowerCase() == 'null')) {
+      return 'Deleted User';
+    }
+
+    // Check if only one name is null/empty
+    if (first.isEmpty || first.toLowerCase() == 'null') {
+      return last.isNotEmpty && last.toLowerCase() != 'null'
+          ? last
+          : 'Deleted User';
+    }
+    if (last.isEmpty || last.toLowerCase() == 'null') {
+      return first.isNotEmpty && first.toLowerCase() != 'null'
+          ? first
+          : 'Deleted User';
+    }
+
+    // Both names are valid
+    return '$first $last'.trim();
+  }
 }

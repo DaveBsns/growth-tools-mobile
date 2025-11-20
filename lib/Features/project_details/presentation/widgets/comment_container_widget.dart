@@ -7,6 +7,7 @@ import 'package:idealize_new_version/Core/Components/textfields_widget.dart';
 import 'package:idealize_new_version/Core/Constants/colors.dart';
 import 'package:idealize_new_version/Core/Constants/config.dart';
 import 'package:idealize_new_version/Core/Constants/icons.dart';
+import 'package:idealize_new_version/Core/Constants/routes.dart';
 import 'package:idealize_new_version/Core/Data/Models/project_comment_model.dart';
 import 'package:idealize_new_version/Core/I18n/messages.dart';
 import 'package:idealize_new_version/Core/Utils/extensions.dart';
@@ -112,17 +113,26 @@ class _CommentContainerWidgetState extends State<CommentContainerWidget> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        widget.comment.user.profilePicture == null
-            ? _placeholderProfile()
-            : ClipRRect(
-                borderRadius: BorderRadius.circular(38),
-                child: showImageFromNetwork(
-                  widget.comment.user.profilePicture!.id,
-                  height: 38,
-                  width: 38,
-                  placeholder: _placeholderProfile(),
+        InkWell(
+          onTap: () {
+            Get.toNamed(
+              AppRoutes().userSuggestionProfile,
+              arguments: widget.comment.user.id,
+            );
+          },
+          child: (widget.comment.user.profilePicture == null ||
+                  widget.comment.user.profilePicture!.id.isEmpty)
+              ? _placeholderProfile()
+              : ClipRRect(
+                  borderRadius: BorderRadius.circular(38),
+                  child: showImageFromNetwork(
+                    widget.comment.user.profilePicture!.id,
+                    height: 38,
+                    width: 38,
+                    placeholder: _placeholderProfile(),
+                  ),
                 ),
-              ),
+        ),
         Gap(AppConfig().dimens.small),
         Expanded(
           child: Column(
@@ -144,13 +154,21 @@ class _CommentContainerWidgetState extends State<CommentContainerWidget> {
     return Row(
       children: [
         Expanded(
-          child: Text(
-            '${toCamelCase(widget.comment.user.firstname)} ${toCamelCase(widget.comment.user.surname)}',
-            style: TextStyle(
-              color: AppColors().txtColor,
-              fontWeight: FontWeight.w700,
-              fontSize: 12.5,
-              letterSpacing: -0.4,
+          child: InkWell(
+            onTap: () {
+              Get.toNamed(
+                AppRoutes().userSuggestionProfile,
+                arguments: widget.comment.user.id,
+              );
+            },
+            child: Text(
+              widget.comment.user.displayName,
+              style: TextStyle(
+                color: AppColors().txtColor,
+                fontWeight: FontWeight.w700,
+                fontSize: 12.5,
+                letterSpacing: -0.4,
+              ),
             ),
           ),
         ),

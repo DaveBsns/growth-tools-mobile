@@ -167,4 +167,10 @@ class DeleteAccountController extends GetxController {
       }
     });
   }
+
+  String get formattedTime {
+    int minutes = timeLeft.value ~/ 60;
+    int seconds = timeLeft.value % 60;
+    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+  }
 }

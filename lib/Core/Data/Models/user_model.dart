@@ -19,6 +19,10 @@ class User {
   final List<Tag> studyPrograms;
   final String? username;
   final bool? pendingUser;
+  final String? institution;
+
+  final String? overview;
+
 
   User({
     required this.id,
@@ -37,6 +41,8 @@ class User {
     this.interestedTags = const [],
     this.studyPrograms = const [],
     this.pendingUser,
+    this.institution,
+    this.overview,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -54,6 +60,9 @@ class User {
       token: json['token'],
       refreshToken: json['refreshToken'],
       username: json['username'],
+      institution: json['institution'],
+      // TODO is SH: Parse aboutYou field from backend response (backward compatible - handles null)
+      overview: json['overview'],
       profilePicture: (json['profilePicture'] != null &&
               json['profilePicture'] is Map<String, dynamic>)
           ? ProjectFile.fromJson(json['profilePicture'])
@@ -92,6 +101,9 @@ class User {
       token: token ?? json['token'],
       refreshToken: refreshToken ?? json['refreshToken'],
       username: json['username'],
+      institution: json['institution'],
+      // TODO is SH: Parse aboutYou from local cache for offline persistence
+      overview: json['overview'],
       profilePicture: (json['profilePicture'] != null &&
               json['profilePicture'] is Map<String, dynamic>)
           ? ProjectFile.fromJson(json['profilePicture'])
@@ -109,5 +121,77 @@ class User {
           ? [...json['studyPrograms'].map((e) => Tag.fromJson(e)).toList()]
           : [],
     );
+  }
+
+  /// Returns the full name of the user, or "Deleted User" if the user data is anonymized/null
+  String get displayName {
+    final first = firstname.trim();
+    final last = surname.trim();
+
+    // Check if both names are empty, null, or literally "null"
+    if ((first.isEmpty || first.toLowerCase() == 'null') &&
+        (last.isEmpty || last.toLowerCase() == 'null')) {
+      return 'Deleted User';
+    }
+
+    // Check if only one name is null/empty
+    if (first.isEmpty || first.toLowerCase() == 'null') {
+      return last.isNotEmpty && last.toLowerCase() != 'null'
+          ? last
+          : 'Deleted User';
+    }
+    if (last.isEmpty || last.toLowerCase() == 'null') {
+      return first.isNotEmpty && first.toLowerCase() != 'null'
+          ? first
+          : 'Deleted User';
+    }
+
+    // Both names are valid
+    return '$first $last'.trim();
+  }
+
+  /// Returns just the first name, or "Deleted" if anonymized
+  String get displayFirstName {
+    final first = firstname.trim();
+    if (first.isEmpty || first.toLowerCase() == 'null') {
+      return 'Deleted';
+    }
+    return first;
+  }
+
+  /// TODO Shayan: Returns the institution name, inferring from email domain if not set
+  String? get institutionName {
+    // If institution is already set, return it
+    if (institution != null && institution!.isNotEmpty) {
+      return institution;
+    }
+
+    // Try to infer from email domain for old users
+    if (email.isEmpty) return null;
+
+    final emailDomain = email.contains('@') ? email.split('@')[1] : '';
+
+    // Map email domains to institution names
+    const domainToInstitution = {
+      // HHN - Hochschule Heilbronn
+      'hs-heilbronn.de': 'HHN - Hochschule Heilbronn',
+      'stud.hs-heilbronn.de': 'HHN - Hochschule Heilbronn',
+      // IPAI (confirmed: ip.ai)
+      'ip.ai': 'IPAI',
+      // TUM (staff only)
+      'tum.de': 'Technische Universität München (TUM)',
+      // Heilbronn 42
+      '42heilbronn.de': 'Heilbronn 42',
+      'stud.42heilbronn.de': 'Heilbronn 42',
+      // DHBW (staff only)
+      'dhbw.de': 'DHBW',
+      // Fraunhofer ISI (staff only)
+      'isi.fraunhofer.de': 'Fraunhofer ISI',
+      // Fraunhofer IAO
+      'iao.fraunhofer.de': 'Fraunhofer IAO',
+      'stud.iao.fraunhofer.de': 'Fraunhofer IAO',
+    };
+
+    return domainToInstitution[emailDomain];
   }
 }

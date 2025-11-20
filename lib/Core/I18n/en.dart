@@ -27,7 +27,11 @@ class EnLanguageData extends LanguageDataKeys {
         AppStrings.profile: "Profile",
         AppStrings.settings: "Settings",
         AppStrings.projectTitle: "Project Title:*",
-        AppStrings.projectTitleHint: "Enter a title for your project",
+        AppStrings.projectTitleHint:
+            "Enter a title for your project (3-50 characters)",
+        AppStrings.projectTitleRangeError:
+            "Title must be between 3 and 50 characters",
+        AppStrings.projectTitleCharacterRange: "3-50 characters",
         AppStrings.desciption: "Description:",
         AppStrings.descriptionHint: "Enter description here",
         AppStrings.saveAsDraft: "Save as draft",
@@ -185,6 +189,10 @@ class EnLanguageData extends LanguageDataKeys {
         AppStrings.emptyNotification: "No notifications yet.",
         AppStrings.notification: "Notifications",
         AppStrings.clearAll: "Clear all",
+        AppStrings.clearNotificationsWarning:
+            "⚠️ {count} pending request(s) kept - please respond to them",
+        AppStrings.clearOnlyRead:
+            "Notifications cleared (pending requests kept)",
         AppStrings.responseSent: "Response sent",
         AppStrings.responseSentMsg: "Response sent successfully",
         AppStrings.firstNameHint: "Your first name",
@@ -235,6 +243,8 @@ class EnLanguageData extends LanguageDataKeys {
         AppStrings.maximumMedias: "You have reached the maximum medias!",
         AppStrings.fileAlreadyAdded: "The file @keyword4 is already added",
         AppStrings.writeAComment: "Write a comment",
+        AppStrings.commentTooShort: "Comment must be at least 2 characters",
+        AppStrings.commentTooLong: "Comment cannot exceed 300 characters",
         AppStrings.noUsersToShow:
             "There are no users to show.\nPlease check later.",
         AppStrings.emptyHere: "It is empty here!",
@@ -260,6 +270,19 @@ class EnLanguageData extends LanguageDataKeys {
             "You have the option to skip this steps and add it later in your profile.",
         AppStrings.noTitle: "No title",
         AppStrings.delete: "Delete",
+        AppStrings.deletedUser: "Deleted User",
+        AppStrings.deletedUserShort: "Deleted",
+        AppStrings.institution: "Institution",
+        AppStrings.selectInstitution: "Select your institution",
+        AppStrings.institutionEmailHint:
+            "Please use your institutional email address",
+        // TODO is SH: Changed from overview to aboutYou for better UX
+        AppStrings.aboutYou: "About You",
+        AppStrings.aboutYouHint: "Tell us about yourself (max 500 characters)",
+        AppStrings.aboutYouTooLong: "About You must be 500 characters or less",
+        AppStrings.aboutYouDescription:
+            "Share a bit about yourself, your interests, or what you're working on. This helps others connect with you better!",
+        AppStrings.aboutUser: "About @name",
         AppStrings.deleteProject: "Delete Project",
         AppStrings.deleteProjectContent:
             "Are you sure you want to delete @projectKeyword? This action cannot be undone.",
@@ -350,6 +373,8 @@ class EnLanguageData extends LanguageDataKeys {
         AppStrings.dailogAddTagsTitle: "Add Tags",
         AppStrings.dailogAddTagsContent:
             "Add tags to the project to make it easier to find it.",
+        AppStrings.dailogProjectTitleInfo:
+            "The project title should be between 3 and 50 characters. Choose a clear and descriptive title that represents your project well.",
         AppStrings.dailogAddCoursesTitle: "Add Courses",
         AppStrings.dailogAddCoursesContent:
             "Add courses to the project to make it easier to find it.",

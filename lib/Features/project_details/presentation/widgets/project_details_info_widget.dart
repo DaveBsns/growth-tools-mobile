@@ -171,7 +171,7 @@ class ProjectDetailsInfoWidget extends StatelessWidget {
                   child: Chip(
                     side: BorderSide(color: AppConfig().colors.lightBlue),
                     label: Text(
-                      '${member.firstName} ${member.lastName}',
+                      member.displayName,
                       style: TextStyle(
                         color: AppConfig().colors.lightBlue,
                         fontWeight: FontWeight.bold,

@@ -7,6 +7,7 @@ import 'package:idealize_new_version/Core/Components/otp_bottom_sheet.dart';
 import 'package:idealize_new_version/Core/Constants/colors.dart';
 import 'package:idealize_new_version/Core/Constants/config.dart';
 import 'package:idealize_new_version/Core/Data/Models/tag_model.dart';
+import 'package:idealize_new_version/Core/Data/Models/institution_model.dart';
 import 'package:idealize_new_version/Core/Utils/extensions.dart';
 import 'package:idealize_new_version/app_repo.dart';
 import 'package:image_picker/image_picker.dart';
@@ -29,6 +30,9 @@ class RegisterController extends GetxController {
   bool surnameCheck = false;
   bool passwordCheck = false;
 
+  // Institution selection
+  Rx<Institution?> selectedInstitution = Rx<Institution?>(null);
+
   final usernameCtrl = TextEditingController();
   final emailCtrl = TextEditingController();
   final reEmailCtrl = TextEditingController();
@@ -36,6 +40,8 @@ class RegisterController extends GetxController {
   final reEnterPasswordCtrl = TextEditingController();
   final firstnameCtrl = TextEditingController();
   final surnameCtrl = TextEditingController();
+  // TODO is SH: Added overview text controller for Step 3 bio field (max 500 chars)
+  final overviewCtrl = TextEditingController();
   final imagePicker = ImagePicker();
   final checkboxValue = Rx<CustomCheckBoxValue>(CustomCheckBoxValue.unchecked);
 
@@ -50,6 +56,17 @@ class RegisterController extends GetxController {
   bool isValidEmail(String email) {
     final RegExp emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+$');
     return emailRegex.hasMatch(email);
+  }
+
+  /// Validates email based on selected institution
+  bool isValidInstitutionEmail(String email) {
+    if (selectedInstitution.value == null) return false;
+    return selectedInstitution.value!.isValidEmail(email);
+  }
+
+  /// Get email placeholder hint based on selected institution
+  String get institutionEmailPlaceholder {
+    return selectedInstitution.value?.emailPlaceholder ?? 'user@example.com';
   }
 
   bool isStrongPassword(String password) {
@@ -128,6 +145,15 @@ class RegisterController extends GetxController {
   }
 
   Future<void> nextStep() async {
+    if (selectedInstitution.value == null) {
+      AppRepo().showSnackbar(
+        label: AppStrings.error.tr,
+        text: AppStrings.selectInstitution.tr,
+        position: SnackPosition.TOP,
+      );
+      return;
+    }
+
     if (!firstNameCheck ||
         !emailCheck ||
         !surnameCheck ||
@@ -243,6 +269,7 @@ class RegisterController extends GetxController {
       firstname: firstname,
       password: password,
       surname: surname,
+      institution: selectedInstitution.value?.name,
     );
 
     if (response != null) {
@@ -256,6 +283,8 @@ class RegisterController extends GetxController {
     // final firstname = firstnameCtrl.text;
     // final surname = surnameCtrl.text;
     final username = usernameCtrl.text.trim();
+    // TODO is SH: Trim overview and validate length before sending to backend
+    final overview = overviewCtrl.text.trim();
 
     loading.value = true;
     final response = await repo.updateUser(
@@ -268,6 +297,8 @@ class RegisterController extends GetxController {
       interstedTags: selectedTags.map((element) => element.id).toList(),
       studyPrograms:
           selectedStudyPrograms.map((element) => element.id).toList(),
+      // TODO is SH: Send overview to backend (empty string sent as null for cleaner API)
+      overview: overview.isEmpty ? null : overview,
     );
 
     if (response != null) {

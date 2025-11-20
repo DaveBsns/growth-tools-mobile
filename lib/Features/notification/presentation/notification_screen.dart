@@ -30,28 +30,33 @@ class NotificationScreen extends GetView<NotificationController> {
       ),
       body: Column(
         children: [
-          InkWell(
-            splashColor: Colors.transparent,
-            onTap: () {
-              controller.clearNotifications();
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(AppStrings.clearAll.tr,
-                    style: TextStyle(
-                        color: AppColors().darkRedColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500)),
-                Gap(AppConfig().dimens.small),
-                Icon(
-                  Iconsax.trash,
-                  color: AppColors().darkRedColor,
-                  size: 24,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              InkWell(
+                splashColor: Colors.transparent,
+                onTap: () {
+                  controller.clearNotifications();
+                },
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(AppStrings.clearAll.tr,
+                        style: TextStyle(
+                            color: AppColors().darkRedColor,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500)),
+                    Gap(AppConfig().dimens.small),
+                    Icon(
+                      Iconsax.trash,
+                      color: AppColors().darkRedColor,
+                      size: 24,
+                    ),
+                  ],
                 ),
-              ],
-            ).paddingOnly(right: AppConfig().dimens.large),
-          ),
+              ),
+            ],
+          ).paddingOnly(right: AppConfig().dimens.large),
           Expanded(
             child: Obx(() {
               if (controller.notifications.isEmpty) {

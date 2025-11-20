@@ -132,8 +132,8 @@ class ProjectDetailsScreen extends GetView<ProjectDetailsController> {
                                 joinedStatus: controller.joinedStatus.value,
                                 onTappedComment: controller.scrollToComments,
                                 ownerName:
-                                    controller.project?.owner?.firstname ??
-                                        'N/A',
+                                    controller.project?.owner?.displayName ??
+                                        AppStrings.deletedUser.tr,
                                 ownerId: controller.project?.owner?.id ?? '',
                                 comments: controller.comments.length,
                                 likes: ((controller.project?.likes ?? 0) +
@@ -283,41 +283,46 @@ class ProjectDetailsScreen extends GetView<ProjectDetailsController> {
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    RichText(
-                                      text: TextSpan(
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.black,
-                                            height: 1.37,
-                                          ),
-                                          children: [
-                                            TextSpan(
-                                              text: AppStrings.replyTo.tr,
+                                    Expanded(
+                                      child: RichText(
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        text: TextSpan(
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.black,
+                                              height: 1.37,
                                             ),
-                                            TextSpan(
-                                              text:
-                                                  " ${controller.getNameBasedOnReplyId(controller.replyCommentId.value)}",
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.w800,
-                                                color: Colors.black,
+                                            children: [
+                                              TextSpan(
+                                                text: AppStrings.replyTo.tr,
                                               ),
-                                            ),
-                                            TextSpan(
-                                              text:
-                                                  "\n${controller.getCommentBasedOnReplyId(controller.replyCommentId.value).pickFirstTenWords()}",
-                                              style: const TextStyle(
-                                                overflow: TextOverflow.ellipsis,
-                                                color: Color.fromARGB(
-                                                  255,
-                                                  49,
-                                                  49,
-                                                  49,
+                                              TextSpan(
+                                                text:
+                                                    " ${controller.getNameBasedOnReplyId(controller.replyCommentId.value)}",
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.w800,
+                                                  color: Colors.black,
                                                 ),
                                               ),
-                                            ),
-                                          ]),
+                                              TextSpan(
+                                                text:
+                                                    "\n${controller.getCommentBasedOnReplyId(controller.replyCommentId.value).pickFirstTenWords()}",
+                                                style: const TextStyle(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  color: Color.fromARGB(
+                                                    255,
+                                                    49,
+                                                    49,
+                                                    49,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      ),
                                     ),
                                     IconButton(
                                         onPressed: controller.removeReply,
@@ -332,12 +337,10 @@ class ProjectDetailsScreen extends GetView<ProjectDetailsController> {
                               child: TextField(
                                 focusNode: controller.myFocusNode,
                                 controller: controller.commentCtrl,
-                                maxLength: 500,
+                                maxLength: 300,
                                 minLines: 1,
                                 maxLines: 5,
                                 decoration: InputDecoration(
-                                  counter: null,
-                                  counterText: "",
                                   fillColor: Colors.white,
                                   filled: true,
                                   border: OutlineInputBorder(

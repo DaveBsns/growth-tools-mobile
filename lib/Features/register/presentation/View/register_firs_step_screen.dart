@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:idealize_new_version/Core/Components/buttons_widget.dart';
 import 'package:idealize_new_version/Core/Components/checkbox_btn_widget.dart';
 import 'package:idealize_new_version/Core/Components/textfields_widget.dart';
+import 'package:idealize_new_version/Core/Components/dropdown_widget.dart';
+import 'package:idealize_new_version/Core/Data/Models/institution_model.dart';
 import 'package:idealize_new_version/Core/Constants/config.dart';
 import 'package:idealize_new_version/Core/I18n/messages.dart';
 import 'package:idealize_new_version/Core/Utils/enums.dart';
@@ -85,6 +87,24 @@ class RegisterFirstStepScreen extends GetView<RegisterController> {
               },
             ),
             Gap(AppConfig().dimens.medium),
+            // Institution Dropdown
+            Text(
+              "${AppStrings.institution.tr}: *",
+              style: textTheme.titleMedium,
+            ),
+            Gap(AppConfig().dimens.small),
+            Obx(() => CustomDropdownWidget(
+                  items: Institutions.names,
+                  hintText: AppStrings.selectInstitution.tr,
+                  initialValue: controller.selectedInstitution.value?.name,
+                  onSelectedItem: (String selectedName) {
+                    final institution = Institutions.getByName(selectedName);
+                    controller.selectedInstitution.value = institution;
+                    // Clear email validation when institution changes
+                    controller.emailCheck = false;
+                  },
+                )),
+            Gap(AppConfig().dimens.medium),
             Text(
               "${AppStrings.email.tr}: *",
               style: textTheme.titleMedium,
@@ -92,13 +112,15 @@ class RegisterFirstStepScreen extends GetView<RegisterController> {
             Container(
               margin: const EdgeInsets.only(top: 8),
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                AppStrings.emailShouldBeHHNHint.tr,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: AppConfig().colors.lightGrayColor,
-                ),
-              ),
+              child: Obx(() => Text(
+                    controller.selectedInstitution.value != null
+                        ? '${AppStrings.institutionEmailHint.tr} (${controller.institutionEmailPlaceholder})'
+                        : AppStrings.emailShouldBeHHNHint.tr,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: AppConfig().colors.lightGrayColor,
+                    ),
+                  )),
             ),
             Gap(AppConfig().dimens.small),
             CustomTextField(
@@ -110,23 +132,26 @@ class RegisterFirstStepScreen extends GetView<RegisterController> {
                   controller.emailCheck = false;
                   return AppStrings.isEmpty.tr;
                 } else {
-                  final email = newTextfieldValue.trim();
-                  if (email.contains('@')) {
-                    final domain = email.split('@')[1];
-                    if (['hs-heilbronn.de', 'stud.hs-heilbronn.de']
-                        .contains(domain)) {
-                      controller.emailCheck = true;
-                      return null;
-                    }
+                  if (controller.selectedInstitution.value == null) {
+                    controller.emailCheck = false;
+                    return AppStrings.selectInstitution.tr;
                   }
-                  controller.emailCheck = false;
-                  return AppStrings.emailShouldBeHHNHint.tr;
+
+                  final isValid = controller
+                      .isValidInstitutionEmail(newTextfieldValue.trim());
+                  controller.emailCheck = isValid;
+
+                  if (!isValid) {
+                    return '${AppStrings.institutionEmailHint.tr} (${controller.institutionEmailPlaceholder})';
+                  }
+
+                  return null;
                 }
               },
             ),
             Gap(AppConfig().dimens.medium),
             Text(
-              "${AppStrings.recoveryEmail.tr}: ",
+              "${AppStrings.recoveryEmail.tr}: *",
               style: textTheme.titleMedium,
             ),
             Container(

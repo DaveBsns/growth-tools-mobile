@@ -10,6 +10,7 @@ abstract class RegisterRepository {
     required String email,
     required String recoveryEmail,
     required String password,
+    String? institution,
   });
 
   Future<Map<String, dynamic>?> verifyAccount({
@@ -29,6 +30,7 @@ abstract class RegisterRepository {
     List<String> interstedTags = const [],
     List<String> interstedCourses = const [],
     List<String> studyPrograms = const [],
+    String? overview,
   });
 
   Future<void> updateUserFromLocalCache(Map<String, dynamic> data);

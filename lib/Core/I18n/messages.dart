@@ -26,6 +26,8 @@ class AppStrings {
   static const String settings = "settings";
   static const String projectTitle = "projectTitle";
   static const String projectTitleHint = "projectTitleHint";
+  static const String projectTitleRangeError = "projectTitleRangeError";
+  static const String projectTitleCharacterRange = "projectTitleCharacterRange";
   static const String desciption = "desciption";
   static const String descriptionHint = "descriptionHint";
   static const String saveAsDraft = "saveAsDraft";
@@ -82,6 +84,17 @@ class AppStrings {
   static const String deleteAccountAnanymize = "deleteAccountAnanymize";
   static const String deleteAccountComplete = "deleteAccountComplete";
   static const String deleteMaterial = "deleteMaterial";
+  static const String deletedUser = "deletedUser";
+  static const String deletedUserShort = "deletedUserShort";
+  static const String institution = "institution";
+  static const String selectInstitution = "selectInstitution";
+  static const String institutionEmailHint = "institutionEmailHint";
+
+  static const String aboutYou = "aboutYou";
+  static const String aboutYouHint = "aboutYouHint";
+  static const String aboutYouTooLong = "aboutYouTooLong";
+  static const String aboutYouDescription = "aboutYouDescription";
+  static const String aboutUser = "aboutUser";
   static const String changePicture = "changePicture";
   static const String editProfile = "editProfile";
   static const String cancel = "cancel";
@@ -169,6 +182,8 @@ class AppStrings {
   static const String emptyNotification = "emptyNotification";
   static const String notification = "notification";
   static const String clearAll = "clearAll";
+  static const String clearNotificationsWarning = "clearNotificationsWarning";
+  static const String clearOnlyRead = "clearOnlyRead";
   static const String responseSent = "responseSent";
   static const String responseSentMsg = "responseSentMsg";
   static const String backToHome = "backToHome";
@@ -210,6 +225,8 @@ class AppStrings {
   static const String maximumMedias = "maximumMedias";
   static const String fileAlreadyAdded = "fileAlreadyAdded";
   static const String writeAComment = "writeAComment";
+  static const String commentTooShort = "commentTooShort";
+  static const String commentTooLong = "commentTooLong";
   static const String noUsersToShow = "noUsersToShow";
   static const String emptyHere = "emptyHere";
   static const String fileUploadInfo = "fileUploadInfo";
@@ -306,6 +323,7 @@ class AppStrings {
   static const String dailogAddLinksContent = "dailogAddLinksContent";
   static const String dailogAddTagsTitle = "dailogAddTagsTitle";
   static const String dailogAddTagsContent = "dailogAddTagsContent";
+  static const String dailogProjectTitleInfo = "dailogProjectTitleInfo";
   static const String dailogAddCoursesTitle = "dailogAddCoursesTitle";
   static const String dailogAddCoursesContent = "dailogAddCoursesContent";
   static const String dailogAddTeamMemberTitle = "dailogAddTeamMemberTitle";

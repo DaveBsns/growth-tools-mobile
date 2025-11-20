@@ -30,12 +30,23 @@ class CreateNewProjectStepOneScreen
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                AppStrings.projectTitle.tr,
-                style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black),
+              RichText(
+                text: TextSpan(
+                    style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black),
+                    children: [
+                      TextSpan(text: AppStrings.projectTitle.tr),
+                      TextSpan(
+                        text: ' ${AppStrings.projectTitleCharacterRange.tr}',
+                        style: const TextStyle(
+                            fontSize: 12,
+                            letterSpacing: -0.5,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.black),
+                      ),
+                    ]),
               ),
               Gap(AppConfig().dimens.small),
               CustomTextField(
@@ -140,45 +151,48 @@ class CreateNewProjectStepOneScreen
         ),
         child: GetBuilder<CreateNewProjectController>(
           init: controller,
-          builder: (_) => Row(
-            children: [
-              Expanded(
-                child: CustomOutlineIconButton(
-                  title: (controller.updateProjectModel == null)
-                      ? AppStrings.saveAsDraft.tr
-                      : (controller.routeFrom == "add-project")
-                          ? AppStrings.saveAsDraft.tr
-                          : AppStrings.editAndSave.tr,
-                  onTap: (controller.titleCtrl.text.isNotEmpty &&
-                          controller.descriptionCtrl.text.isNotEmpty &&
-                          controller.selectedTags.isNotEmpty &&
-                          controller.checkboxValue.value ==
-                              CustomCheckBoxValue.checked)
-                      ? (controller.updateProjectModel != null
-                          ? () => controller.updateProject(
-                              isDraft: controller.updateProjectModel!.isDraft)
-                          : controller.createNewProjectAsDraft)
-                      : null,
+          builder: (_) {
+            final isTitleValid = controller.isTitleValid();
+            return Row(
+              children: [
+                Expanded(
+                  child: CustomOutlineIconButton(
+                    title: (controller.updateProjectModel == null)
+                        ? AppStrings.saveAsDraft.tr
+                        : (controller.routeFrom == "add-project")
+                            ? AppStrings.saveAsDraft.tr
+                            : AppStrings.editAndSave.tr,
+                    onTap: (isTitleValid &&
+                            controller.descriptionCtrl.text.isNotEmpty &&
+                            controller.selectedTags.isNotEmpty &&
+                            controller.checkboxValue.value ==
+                                CustomCheckBoxValue.checked)
+                        ? (controller.updateProjectModel != null
+                            ? () => controller.updateProject(
+                                isDraft: controller.updateProjectModel!.isDraft)
+                            : controller.createNewProjectAsDraft)
+                        : null,
+                  ),
                 ),
-              ),
-              Gap(AppConfig().dimens.small),
-              Expanded(
-                child: CustomIconButton(
-                  color: AppConfig().colors.primaryColor,
-                  title: AppStrings.next.tr,
-                  txtColor: Colors.white,
-                  onTap: ((controller.titleCtrl.text.isEmpty ||
-                              controller.descriptionCtrl.text.isEmpty) ||
-                          controller.loading.value ||
-                          controller.selectedTags.isEmpty ||
-                          controller.checkboxValue.value !=
-                              CustomCheckBoxValue.checked)
-                      ? null
-                      : controller.createNewProjectStep2,
+                Gap(AppConfig().dimens.small),
+                Expanded(
+                  child: CustomIconButton(
+                    color: AppConfig().colors.primaryColor,
+                    title: AppStrings.next.tr,
+                    txtColor: Colors.white,
+                    onTap: (!isTitleValid ||
+                            controller.descriptionCtrl.text.isEmpty ||
+                            controller.loading.value ||
+                            controller.selectedTags.isEmpty ||
+                            controller.checkboxValue.value !=
+                                CustomCheckBoxValue.checked)
+                        ? null
+                        : controller.createNewProjectStep2,
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            );
+          },
         ),
       ),
     );
