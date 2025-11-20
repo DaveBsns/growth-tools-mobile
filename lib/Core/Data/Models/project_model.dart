@@ -188,12 +188,12 @@ class ProjectUser {
   final String id;
   final String firstName;
   final String lastName;
-  final String email;
+  final String? email; 
   final String userType;
 
   ProjectUser({
     required this.id,
-    required this.email,
+    this.email,
     required this.firstName,
     required this.lastName,
     required this.userType,
@@ -202,7 +202,7 @@ class ProjectUser {
   factory ProjectUser.fromJson(Map<String, dynamic> json) {
     return ProjectUser(
       id: json['_id'],
-      email: json['email'],
+      email: json['email'] as String?,
       firstName: json['firstName'],
       lastName: json['lastName'],
       userType: json['userType'] ?? 'student',

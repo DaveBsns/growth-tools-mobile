@@ -18,6 +18,9 @@ class SplashController extends GetxController {
   });
 
   Future<void> checkUserStatusFromLocalCache() async {
+    // TODO SH: Cache migration - clear old cached data if version < 2
+    await _migrateCacheIfNeeded();
+
     final rawUserStatusFromLocalCache = AppRepo()
         .localCache
         .read<int>(AppConfig().localCacheKeys.userLoggedInStatus);
@@ -49,6 +52,36 @@ class SplashController extends GetxController {
       case UserStatus.loggedOut:
         Get.offNamed(AppConfig().routes.authentication);
         break;
+    }
+  }
+
+  /// TODO SH: Migrate cache from old version - clears outdated cached user data
+  /// This ensures users get fresh data with new email field after backend update
+  Future<void> _migrateCacheIfNeeded() async {
+    const int currentCacheVersion = 2; // Increment when schema changes
+    final int? savedCacheVersion =
+        AppRepo().localCache.read<int>('cache_version');
+
+    if (savedCacheVersion == null || savedCacheVersion < currentCacheVersion) {
+      // Clear old cached user data that might not have email field
+      await AppRepo()
+          .secureLocalCache
+          .write(AppConfig().localSecureCacheKeys.userObject, '');
+      await AppRepo()
+          .secureLocalCache
+          .write(AppConfig().localSecureCacheKeys.jwtToken, '');
+      await AppRepo()
+          .secureLocalCache
+          .write(AppConfig().localSecureCacheKeys.jwtRefreshToken, '');
+
+      // Clear login status to force fresh login
+      AppRepo().localCache.write(
+            AppConfig().localCacheKeys.userLoggedInStatus,
+            2, // UserStatus.loggedOut
+          );
+
+      // Update cache version
+      AppRepo().localCache.write('cache_version', currentCacheVersion);
     }
   }
 

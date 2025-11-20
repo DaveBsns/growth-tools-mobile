@@ -93,7 +93,8 @@ class ProfileScreen extends GetView<ProfileController> {
                               Gap(AppConfig().dimens.extraSmall),
                               Text(
                                 AppRepo().user != null
-                                    ? AppRepo().user!.email
+                                    ? AppRepo().user!.email ??
+                                        "No email available"
                                     : "No email available",
                                 style: TextStyle(
                                   fontSize: 14,

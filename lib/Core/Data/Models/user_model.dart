@@ -4,7 +4,8 @@ import 'package:idealize_new_version/Core/Utils/extensions.dart';
 
 class User {
   final String id;
-  final String email;
+  final String?
+      email; // TODO SH: Nullable for backward compatibility with old cached data
   final String? recoveryEmail;
   final String firstname;
   final String surname;
@@ -23,10 +24,9 @@ class User {
 
   final String? overview;
 
-
   User({
     required this.id,
-    required this.email,
+    this.email, // TODO SH: Nullable for backward compatibility
     required this.createdAt,
     required this.firstname,
     required this.surname,
@@ -48,7 +48,7 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json['_id'],
-      email: json['email'],
+      email: json['email'] as String?,
       recoveryEmail: json['recoveryEmail'],
       status: json['status'],
       createdAt:
@@ -89,7 +89,8 @@ class User {
   }) {
     return User(
       id: json['_id'],
-      email: json['email'],
+      email: json['email']
+          as String?, // TODO SH: Safe cast for backward compatibility
       recoveryEmail: json['recoveryEmail'],
       status: json['status'],
       createdAt:
@@ -167,9 +168,10 @@ class User {
     }
 
     // Try to infer from email domain for old users
-    if (email.isEmpty) return null;
+    // TODO SH: Handle null email from old cached data
+    if (email == null || email!.isEmpty) return null;
 
-    final emailDomain = email.contains('@') ? email.split('@')[1] : '';
+    final emailDomain = email!.contains('@') ? email!.split('@')[1] : '';
 
     // Map email domains to institution names
     const domainToInstitution = {
