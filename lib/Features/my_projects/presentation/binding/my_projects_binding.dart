@@ -16,19 +16,3 @@ class MyProjectsBinding extends Bindings {
   }
 }
 
-
-
-
-
-
-// import 'package:get/get.dart';
-// import 'package:idealize_new_version/Features/My_Projects/my_projects_viewmodel.dart';
-
-// class MyProjectBinding extends Bindings {
-//   @override
-//   void dependencies() {
-//     Get.lazyPut<MyProjectsViewModel>(
-//       () => MyProjectsViewModel(),
-//     );
-//   }
-// }

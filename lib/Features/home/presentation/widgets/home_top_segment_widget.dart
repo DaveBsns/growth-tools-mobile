@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:idealize_new_version/Core/Constants/colors.dart';
 import 'package:idealize_new_version/Core/Constants/config.dart';
-import 'package:idealize_new_version/Core/Constants/icons.dart';
 import 'package:idealize_new_version/Core/Constants/routes.dart';
 import 'package:idealize_new_version/Core/I18n/messages.dart';
 import 'package:idealize_new_version/Features/home/presentation/controller/home_controller.dart';
@@ -84,9 +83,9 @@ class HomeTopSegmentWidget extends GetView<HomeController> {
                       overflow: TextOverflow.ellipsis,
                     )),
                 ButtonSegment<String>(
-                    value: 'my-projects',
+                    value: 'for-you',
                     label: Text(
-                      AppStrings.myProjects.tr,
+                      AppStrings.forYou.tr,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     )),
