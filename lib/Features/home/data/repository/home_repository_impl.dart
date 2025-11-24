@@ -1,4 +1,5 @@
 import 'package:idealize_new_version/Core/Data/Models/project_model.dart';
+import 'package:idealize_new_version/Core/Data/Models/recommendation_response_model.dart';
 import 'package:idealize_new_version/Core/Data/Models/tag_model.dart';
 import 'package:idealize_new_version/Core/Data/Services/archive_service.dart';
 import 'package:idealize_new_version/Core/Data/Services/like_service.dart';
@@ -48,12 +49,25 @@ class HomeRepositoryImpl extends HomeRepository {
         limit: 10,
       );
 
+      // Store pagination info in controller for later use
+      _lastRecommendationResponse = response;
+
       // Filter out user's own projects as a safety measure
       // (backend should already do this, but we add it as a safeguard)
       final recommendedProjects = response?.projects ?? [];
-      final filteredProjects = recommendedProjects
+      var filteredProjects = recommendedProjects
           .where((project) => project.owner?.id != AppRepo().user?.id)
           .toList();
+
+      // Apply search filter if provided
+      if (searchInput != null && searchInput.isNotEmpty) {
+        final searchLower = searchInput.toLowerCase();
+        filteredProjects = filteredProjects
+            .where((project) =>
+                project.title.toLowerCase().contains(searchLower) ||
+                project.description.toLowerCase().contains(searchLower))
+            .toList();
+      }
 
       return filteredProjects;
     }
@@ -68,6 +82,13 @@ class HomeRepositoryImpl extends HomeRepository {
       joinedProjects: false,
     );
   }
+
+  /// Store the last recommendation response to check hasMore status
+  RecommendationResponse? _lastRecommendationResponse;
+
+  /// Get the hasMore status from the last recommendation response
+  bool get hasMoreRecommendations =>
+      _lastRecommendationResponse?.hasMore ?? false;
 
   @override
   Future<int> unreadNotifications() async {

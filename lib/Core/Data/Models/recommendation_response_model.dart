@@ -6,6 +6,9 @@ class RecommendationResponse {
   final String algorithm;
   final String? emptyStateReason;
   final String? emptyStateMessage;
+  final bool hasMore;
+  final int? page;
+  final int? limit;
 
   RecommendationResponse({
     required this.projects,
@@ -13,6 +16,9 @@ class RecommendationResponse {
     required this.algorithm,
     this.emptyStateReason,
     this.emptyStateMessage,
+    this.hasMore = false,
+    this.page,
+    this.limit,
   });
 
   factory RecommendationResponse.fromJson(Map<String, dynamic> json) {
@@ -26,6 +32,9 @@ class RecommendationResponse {
       algorithm: json['algorithm'] ?? 'content-based',
       emptyStateReason: json['emptyStateReason'] as String?,
       emptyStateMessage: json['emptyStateMessage'] as String?,
+      hasMore: json['hasMore'] ?? false,
+      page: json['page'] as int?,
+      limit: json['limit'] as int?,
     );
   }
 }

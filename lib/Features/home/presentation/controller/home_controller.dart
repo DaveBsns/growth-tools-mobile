@@ -26,6 +26,7 @@ class HomeController extends GetxController {
   bool lastPage = false;
   String searchInput = '';
   List<Project> projects = [];
+  Set<String> _loadedProjectIds = {};
 
   Rx<Tag?> filteredByTag = Rx<Tag?>(null);
   Project? filteredByTagProject;
@@ -56,22 +57,52 @@ class HomeController extends GetxController {
           selectedFilter == 'all-projects' ? filteredByTag.value : null,
     );
 
-    if (result.isNotEmpty) {
-      projects.clear();
-      projects.addAll(projects);
-    }
-
     if (page == 1) {
       searchedProjects.clear();
+      _loadedProjectIds.clear();
     }
 
-    searchedProjects.addAll(result);
+    // For "for-you" segment, use hasMore from backend if available
+    if (selectedFilter == 'for-you') {
+      final homeRepo = repo as dynamic;
+      final hasMore = homeRepo.hasMoreRecommendations ?? true;
 
-    if (!currentPage) {
-      if (result.isNotEmpty) {
-        _pageIncreament();
-      } else {
+      searchedProjects.addAll(result);
+
+      if (!currentPage) {
+        if (!hasMore || result.isEmpty) {
+          lastPage = true;
+        } else {
+          _pageIncreament();
+        }
+      }
+    } else {
+      // For other segments, use duplicate detection as fallback
+      final newProjects = result
+          .where((project) => !_loadedProjectIds.contains(project.id))
+          .toList();
+
+      // If all results are duplicates, backend is returning same page again
+      if (result.isNotEmpty && newProjects.isEmpty) {
         lastPage = true;
+        loading = false;
+        update();
+        return;
+      }
+
+      // Track loaded project IDs
+      for (var project in newProjects) {
+        _loadedProjectIds.add(project.id);
+      }
+
+      searchedProjects.addAll(newProjects);
+
+      if (!currentPage) {
+        if (newProjects.isNotEmpty) {
+          _pageIncreament();
+        } else {
+          lastPage = true;
+        }
       }
     }
 
@@ -101,6 +132,8 @@ class HomeController extends GetxController {
 
   void search() {
     FocusManager.instance.primaryFocus?.unfocus();
+    searchInput =
+        searchInputController.text; // Capture search input from text field
     _resetPage();
     _fetchAllTheProjects();
   }
@@ -123,6 +156,7 @@ class HomeController extends GetxController {
   void _resetPage() {
     page = 1;
     lastPage = false;
+    _loadedProjectIds.clear(); // Clear loaded IDs when resetting
   }
 
   void _pageIncreament() => page++;

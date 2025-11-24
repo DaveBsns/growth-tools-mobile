@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:idealize_new_version/Core/Components/empty_state_guidance_widget.dart';
 import 'package:idealize_new_version/Core/Components/go_to_top_widget.dart';
 import 'package:idealize_new_version/Core/Components/loading_widget.dart';
 import 'package:idealize_new_version/Core/Components/project_cards_widget.dart';
@@ -28,34 +28,13 @@ class HomeMainListWidget extends GetView<HomeController> {
                 children: [
                   if (controller.searchedProjects.isEmpty &&
                       !controller.loading)
-                    Center(
-                      child: Padding(
-                          padding: EdgeInsets.all(
-                            AppConfig().dimens.large,
-                          ),
-                          child: TextButton(
-                            onPressed: controller.refreshContent,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  AppStrings.emptyList.tr,
-                                  style: TextStyle(
-                                    color: AppConfig().colors.darkGrayColor,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                                Gap(AppConfig().dimens.medium),
-                                Icon(
-                                  Icons.refresh,
-                                  size: 60,
-                                  color: AppConfig().colors.secondaryColor,
-                                ),
-                              ],
-                            ),
-                          )),
+                    EmptyStateGuidanceWidget(
+                      onRefresh: controller.refreshContent,
+                      customGuidanceMessage:
+                          controller.selectedFilter == 'for-you'
+                              ? AppStrings.addInterestsToGetRecommendations.tr
+                              : null,
+                      emptyStateLabel: AppStrings.emptyList.tr,
                     ),
                   if (controller.searchedProjects.isNotEmpty)
                     RefreshIndicator(

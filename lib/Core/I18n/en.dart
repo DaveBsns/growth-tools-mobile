@@ -156,6 +156,8 @@ class EnLanguageData extends LanguageDataKeys {
         AppStrings.startUsingIdealize: "Start using Idealize",
         AppStrings.newHome: "New",
         AppStrings.forYou: "For You",
+        AppStrings.addInterestsToGetRecommendations:
+            "Add tags and courses to your profile to get personalized recommendations",
         AppStrings.weeklyTrend: "Weekly Trend",
         AppStrings.addNewProject: "Add New Project",
         AppStrings.or: "Or",

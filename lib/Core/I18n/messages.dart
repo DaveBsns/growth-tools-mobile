@@ -153,6 +153,8 @@ class AppStrings {
   static const String startUsingIdealize = "startUsingIdealize";
   static const String newHome = "newHome";
   static const String forYou = "forYou";
+  static const String addInterestsToGetRecommendations =
+      "addInterestsToGetRecommendations";
   static const String weeklyTrend = "weeklyTrend";
   static const String addNewProject = "addNewProject";
   static const String or = "or";
