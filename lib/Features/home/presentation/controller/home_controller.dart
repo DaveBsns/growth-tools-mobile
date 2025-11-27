@@ -31,6 +31,10 @@ class HomeController extends GetxController {
   Rx<Tag?> filteredByTag = Rx<Tag?>(null);
   Project? filteredByTagProject;
 
+  /// Currently selected recommendation type for "For You" segment
+  /// Options: 'basic', 'for-you' (content-based), 'hybrid'
+  RxString selectedRecommendationType = 'basic'.obs;
+
   @override
   void onInit() {
     getUnreadNotificationsCount();
@@ -55,6 +59,7 @@ class HomeController extends GetxController {
       selectedSegment: selectedFilter,
       filteredByTag:
           selectedFilter == 'all-projects' ? filteredByTag.value : null,
+      recommendationType: selectedRecommendationType.value,
     );
 
     if (page == 1) {
@@ -150,6 +155,13 @@ class HomeController extends GetxController {
   void updateSegmentValue(Set<String> indexes) {
     selectedFilter = indexes.first;
     update();
+    refreshContent();
+  }
+
+  /// Updates the recommendation type for "For You" segment
+  /// and refreshes the content
+  void updateRecommendationType(String type) {
+    selectedRecommendationType.value = type;
     refreshContent();
   }
 

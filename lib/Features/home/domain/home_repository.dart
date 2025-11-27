@@ -7,6 +7,7 @@ abstract class HomeRepository {
     String selectedSegment = 'all-projects',
     int page = 1,
     Tag? filteredByTag,
+    String recommendationType = 'basic',
   });
   Future<String?> archive({
     required String projectId,

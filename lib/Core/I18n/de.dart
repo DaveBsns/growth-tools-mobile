@@ -500,5 +500,9 @@ iOS: Dateien-App > Downloads > Materialien > {Name des Projekts}
             "OTP an meine Wiederherstellungs-E-Mail senden.",
         AppStrings.useRecoveryEmailDesc:
             "Kein Zugriff auf dein HHN-Konto? Tippe hier, um ein OTP an deine Wiederherstellungs-E-Mail zu erhalten.",
+        AppStrings.recommendationTypeBasic: "Einfach",
+        AppStrings.recommendationTypeForYou: "Inhaltsbasiert",
+        AppStrings.recommendationTypeHybrid: "Hybrid",
+        AppStrings.selectRecommendationType: "Empfehlungstyp",
       };
 }

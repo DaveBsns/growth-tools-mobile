@@ -37,17 +37,41 @@ class HomeRepositoryImpl extends HomeRepository {
     String selectedSegment = 'all-projects',
     int page = 1,
     Tag? filteredByTag,
+    String recommendationType = 'basic',
   }) async {
-    // Fetch "For You" recommendations using content-based filtering
+    // Fetch "For You" recommendations using the selected recommendation type
     if (selectedSegment == 'for-you') {
       if (AppRepo().user?.id == null) return [];
 
-      // Fetch "For You" recommendations using content-based filtering
-      final response = await recommendationService.fetchForYouRecommendations(
-        userId: AppRepo().user!.id,
-        page: page,
-        limit: 10,
-      );
+      // Fetch recommendations based on selected type
+      final RecommendationResponse? response;
+      switch (recommendationType) {
+        case 'for-you':
+          // Content-based filtering
+          response = await recommendationService.fetchForYouRecommendations(
+            userId: AppRepo().user!.id,
+            page: page,
+            limit: 10,
+          );
+          break;
+        case 'hybrid':
+          // Hybrid: Content-based + Popularity
+          response = await recommendationService.fetchHybridRecommendations(
+            userId: AppRepo().user!.id,
+            page: page,
+            limit: 10,
+          );
+          break;
+        case 'basic':
+        default:
+          // Basic filtering (default)
+          response = await recommendationService.fetchBasicRecommendations(
+            userId: AppRepo().user!.id,
+            page: page,
+            limit: 10,
+          );
+          break;
+      }
 
       // Store pagination info in controller for later use
       _lastRecommendationResponse = response;
