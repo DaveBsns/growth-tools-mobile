@@ -153,6 +153,8 @@ class AppStrings {
   static const String startUsingIdealize = "startUsingIdealize";
   static const String newHome = "newHome";
   static const String forYou = "forYou";
+  static const String addInterestsToGetRecommendations =
+      "addInterestsToGetRecommendations";
   static const String weeklyTrend = "weeklyTrend";
   static const String addNewProject = "addNewProject";
   static const String or = "or";
@@ -408,4 +410,9 @@ class AppStrings {
   static const String impressum = "impressum";
   static const String useRecoveryEmail = "useRecoveryEmail";
   static const String useRecoveryEmailDesc = "useRecoveryEmailDesc";
+
+  static const String recommendationTypeBasic = "recommendationTypeBasic";
+  static const String recommendationTypeForYou = "recommendationTypeForYou";
+  static const String recommendationTypeHybrid = "recommendationTypeHybrid";
+  static const String selectRecommendationType = "selectRecommendationType";
 }

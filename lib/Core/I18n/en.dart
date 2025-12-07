@@ -156,6 +156,8 @@ class EnLanguageData extends LanguageDataKeys {
         AppStrings.startUsingIdealize: "Start using Idealize",
         AppStrings.newHome: "New",
         AppStrings.forYou: "For You",
+        AppStrings.addInterestsToGetRecommendations:
+            "Add tags and courses to your profile to get personalized recommendations",
         AppStrings.weeklyTrend: "Weekly Trend",
         AppStrings.addNewProject: "Add New Project",
         AppStrings.or: "Or",
@@ -480,5 +482,9 @@ iOS: Files app > Downloads > materials > {project_name}
         AppStrings.useRecoveryEmail: "Send OTP to my recovery email.",
         AppStrings.useRecoveryEmailDesc:
             "You don't access to your HHN account? tap here to receive OTP on your recovery email",
+        AppStrings.recommendationTypeBasic: "Basic",
+        AppStrings.recommendationTypeForYou: "Content-based",
+        AppStrings.recommendationTypeHybrid: "Hybrid",
+        AppStrings.selectRecommendationType: "Recommendation Type",
       };
 }

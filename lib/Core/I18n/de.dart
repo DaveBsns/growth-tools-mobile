@@ -173,7 +173,9 @@ class DeLanguageData extends LanguageDataKeys {
         AppStrings.startUsingIdealize: "IdeaLize starten",
         AppStrings.newHome: "Neu",
         AppStrings.forYou: "Für dich",
-        AppStrings.weeklyTrend: "Wöchentliche Trends",
+        AppStrings.addInterestsToGetRecommendations:
+            "Fügen Sie Tags und Kurse zu Ihrem Profil hinzu, um personalisierte Empfehlungen zu erhalten",
+        AppStrings.weeklyTrend: "Wöchentlicher Trend",
         AppStrings.addNewProject: "Neues Projekt hinzufügen",
         AppStrings.or: "Oder",
         AppStrings.workOnAProjectFromDraft: "Arbeiten Sie an einem Entwurf:",
@@ -498,5 +500,9 @@ iOS: Dateien-App > Downloads > Materialien > {Name des Projekts}
             "OTP an meine Wiederherstellungs-E-Mail senden.",
         AppStrings.useRecoveryEmailDesc:
             "Kein Zugriff auf dein HHN-Konto? Tippe hier, um ein OTP an deine Wiederherstellungs-E-Mail zu erhalten.",
+        AppStrings.recommendationTypeBasic: "Einfach",
+        AppStrings.recommendationTypeForYou: "Inhaltsbasiert",
+        AppStrings.recommendationTypeHybrid: "Hybrid",
+        AppStrings.selectRecommendationType: "Empfehlungstyp",
       };
 }
