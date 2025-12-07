@@ -3,38 +3,6 @@ import 'package:idealize_new_version/Core/Utils/enums.dart';
 import './services_helper.dart';
 
 class RecommendationService extends ServicesHelper {
-  /// Fetches "For You" recommendations using content-based filtering
-  ///
-  /// Algorithm: Content-based filtering using:
-  /// - Tag matching (50% weight)
-  /// - Course matching (30% weight)
-  /// - Recency score (20% weight)
-  Future<RecommendationResponse?> fetchForYouRecommendations({
-    required String userId,
-    int page = 1,
-    int limit = 10,
-  }) async {
-    Map<String, dynamic> queryParameters = {
-      'id': userId,
-      'page': page,
-      'limit': limit,
-    };
-
-    final query = queryMaker(queryParameters);
-
-    final mappedData = await request(
-      '$baseURL/recommendations/for-you$query',
-      serviceType: ServiceType.get,
-      requiredDefaultHeader: true,
-    );
-
-    if (mappedData != null) {
-      return RecommendationResponse.fromJson(mappedData);
-    }
-
-    return null;
-  }
-
   /// Fetches basic filtered recommendations
   ///
   /// Algorithm: Simple filtering returning projects that match
@@ -54,6 +22,68 @@ class RecommendationService extends ServicesHelper {
 
     final mappedData = await request(
       '$baseURL/recommendations/basic$query',
+      serviceType: ServiceType.get,
+      requiredDefaultHeader: true,
+    );
+
+    if (mappedData != null) {
+      return RecommendationResponse.fromJson(mappedData);
+    }
+
+    return null;
+  }
+
+  /// Fetches content-based recommendations using content-based filtering
+  ///
+  /// Algorithm: Content-based filtering using:
+  /// - Tag matching (50% weight)
+  /// - Course matching (30% weight)
+  /// - Recency score (20% weight)
+  Future<RecommendationResponse?> fetchContentBasedRecommendations({
+    required String userId,
+    int page = 1,
+    int limit = 10,
+  }) async {
+    Map<String, dynamic> queryParameters = {
+      'id': userId,
+      'page': page,
+      'limit': limit,
+    };
+
+    final query = queryMaker(queryParameters);
+
+    final mappedData = await request(
+      '$baseURL/recommendations/content-based$query',
+      serviceType: ServiceType.get,
+      requiredDefaultHeader: true,
+    );
+
+    if (mappedData != null) {
+      return RecommendationResponse.fromJson(mappedData);
+    }
+
+    return null;
+  }
+
+  /// Fetches collaborative recommendations using content-based filtering
+  ///
+  /// Algorithm: Collaborative filtering using:
+  /// SVD algorithm
+  Future<RecommendationResponse?> fetchCollaborativeRecommendations({
+    required String userId,
+    int page = 1,
+    int limit = 10,
+  }) async {
+    Map<String, dynamic> queryParameters = {
+      'id': userId,
+      'page': page,
+      'limit': limit,
+    };
+
+    final query = queryMaker(queryParameters);
+
+    final mappedData = await request(
+      '$baseURL/recommendations/collaborative$query',
       serviceType: ServiceType.get,
       requiredDefaultHeader: true,
     );

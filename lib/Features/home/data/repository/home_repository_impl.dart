@@ -39,16 +39,26 @@ class HomeRepositoryImpl extends HomeRepository {
     Tag? filteredByTag,
     String recommendationType = 'basic',
   }) async {
-    // Fetch "For You" recommendations using the selected recommendation type
+    // Fetch "for-you" recommendations using the selected recommendation type
     if (selectedSegment == 'for-you') {
       if (AppRepo().user?.id == null) return [];
 
       // Fetch recommendations based on selected type
       final RecommendationResponse? response;
       switch (recommendationType) {
-        case 'for-you':
+        case 'content-based':
           // Content-based filtering
-          response = await recommendationService.fetchForYouRecommendations(
+          response =
+              await recommendationService.fetchContentBasedRecommendations(
+            userId: AppRepo().user!.id,
+            page: page,
+            limit: 10,
+          );
+          break;
+        case 'collaborative':
+          // Collaborative filtering
+          response =
+              await recommendationService.fetchCollaborativeRecommendations(
             userId: AppRepo().user!.id,
             page: page,
             limit: 10,
