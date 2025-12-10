@@ -7,6 +7,9 @@ import 'package:idealize_new_version/Features/Create_New_Project/presentation/vi
 import 'package:idealize_new_version/Features/home/presentation/home_view.dart';
 import 'package:idealize_new_version/Features/app_setting/presentation/screens/app_setting_screen.dart';
 
+import 'package:flutter_svg/svg.dart';
+import 'package:idealize_new_version/gen/assets.gen.dart';
+
 import '../Profile/presentation/profile_screen.dart';
 
 class AppBaseView extends GetView<BaseViewModel> {
@@ -14,7 +17,7 @@ class AppBaseView extends GetView<BaseViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    // controller.connectSocket();
+    controller.connectSocket();
 
     return GetBuilder<BaseViewModel>(
         init: controller,
@@ -23,16 +26,17 @@ class AppBaseView extends GetView<BaseViewModel> {
               resizeToAvoidBottomInset: false,
               extendBody: true,
               extendBodyBehindAppBar: true,
+
               // TODO should be uncoment after realse version 1.0.0
-              // floatingActionButton: Padding(
-              //   padding: const EdgeInsets.only(right: 10),
-              //   child: FloatingActionButton(
-              //     onPressed: controller.openChatScreen,
-              //     backgroundColor: const Color(0xff6675AE),
-              //     shape: const CircleBorder(),
-              //     child: SvgPicture.asset(Assets.svg.chatIc),
-              //   ),
-              // ),
+              floatingActionButton: Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: FloatingActionButton(
+                  onPressed: controller.openChatScreen,
+                  backgroundColor: const Color(0xff6675AE),
+                  shape: const CircleBorder(),
+                  child: SvgPicture.asset(Assets.svg.chatIc),
+                ),
+              ),
               body: IndexedStack(
                   index: controller.model.currentNavigationbarIndex,
                   children: const [
