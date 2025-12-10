@@ -15,8 +15,8 @@ class AppConfig {
       "http://188.245.211.204:7000"; // https://api.campusconnects.de  |   http://localhost:6000
   String get baseFileUrl =>
       "http://188.245.211.204:7000"; // https://api.campusconnects.de  |   http://localhost:6000
-  String get chatBotServer => "http://10.0.2.2:8000/api/chatbot";
-  // String get chatBotServer => "http://188.245.211.204:7000/chat";
+  // String get chatBotServer => "http://10.0.2.2:8000/api/chatbot";
+  String get chatBotServer => "http://188.245.211.204:7000/chat";
 
   String get termsCondiftionsUrl =>
       "https://landing.campusconnects.de/terms-conditions.htm";
