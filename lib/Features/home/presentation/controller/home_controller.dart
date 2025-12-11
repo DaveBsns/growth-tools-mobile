@@ -32,7 +32,7 @@ class HomeController extends GetxController {
   Project? filteredByTagProject;
 
   /// Currently selected recommendation type for "For You" segment
-  /// Options: 'basic', 'for-you' (content-based), 'hybrid'
+  /// Options: 'basic', 'content-based', 'collaborative', 'hybrid'
   RxString selectedRecommendationType = 'basic'.obs;
 
   @override

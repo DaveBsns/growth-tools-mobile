@@ -17,7 +17,7 @@ class RecommendationService extends ServicesHelper {
       'page': page,
       'limit': limit,
     };
-
+    print('Basic filtering');
     final query = queryMaker(queryParameters);
 
     final mappedData = await request(
@@ -49,7 +49,7 @@ class RecommendationService extends ServicesHelper {
       'page': page,
       'limit': limit,
     };
-
+    print('Content-based filtering');
     final query = queryMaker(queryParameters);
 
     final mappedData = await request(
@@ -79,7 +79,7 @@ class RecommendationService extends ServicesHelper {
       'page': page,
       'limit': limit,
     };
-
+    print('Collaborative filtering');
     final query = queryMaker(queryParameters);
 
     final mappedData = await request(
@@ -110,7 +110,7 @@ class RecommendationService extends ServicesHelper {
       'page': page,
       'limit': limit,
     };
-
+    print('Hybrid filtering');
     final query = queryMaker(queryParameters);
 
     final mappedData = await request(

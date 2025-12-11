@@ -412,7 +412,10 @@ class AppStrings {
   static const String useRecoveryEmailDesc = "useRecoveryEmailDesc";
 
   static const String recommendationTypeBasic = "recommendationTypeBasic";
-  static const String recommendationTypeForYou = "recommendationTypeForYou";
+  static const String recommendationTypeContentBased =
+      "recommendationTypeContentBased";
+  static const String recommendationTypeCollaborative =
+      "recommendationTypeCollaborative";
   static const String recommendationTypeHybrid = "recommendationTypeHybrid";
   static const String selectRecommendationType = "selectRecommendationType";
 }

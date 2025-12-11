@@ -14,8 +14,10 @@ class HomeTopSegmentWidget extends GetView<HomeController> {
     switch (type) {
       case 'basic':
         return AppStrings.recommendationTypeBasic.tr;
-      case 'for-you':
-        return AppStrings.recommendationTypeForYou.tr;
+      case 'content-based':
+        return AppStrings.recommendationTypeContentBased.tr;
+      case 'collaborative':
+        return AppStrings.recommendationTypeCollaborative.tr;
       case 'hybrid':
         return AppStrings.recommendationTypeHybrid.tr;
       default:
@@ -193,8 +195,12 @@ class HomeTopSegmentWidget extends GetView<HomeController> {
                 label: _getRecommendationTypeLabel('basic'),
               ),
               DropdownMenuEntry<String>(
-                value: 'for-you',
-                label: _getRecommendationTypeLabel('for-you'),
+                value: 'content-based',
+                label: _getRecommendationTypeLabel('content-based'),
+              ),
+              DropdownMenuEntry<String>(
+                value: 'collaborative',
+                label: _getRecommendationTypeLabel('collaborative'),
               ),
               DropdownMenuEntry<String>(
                 value: 'hybrid',
