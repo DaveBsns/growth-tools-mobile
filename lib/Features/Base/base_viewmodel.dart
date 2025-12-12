@@ -109,16 +109,34 @@ class BaseViewModel extends GetxController {
       socket?.on("receiveMessage", (data) {
         // print('receiveMessage: $data["message"]');
         debugPrint('Receive message: ${data["message"]}');
-        chats.add(ChatEntity(text: data['message']['message'], isMe: false));
-        if (data['message']['projects'] != null &&
-            data['message']['projects'].isNotEmpty) {
+
+        bool hasProjects = data['message']['projects'] != null &&
+            data['message']['projects'].isNotEmpty;
+        bool hasUsers = data['message']['users'] != null &&
+            data['message']['users'].isNotEmpty;
+
+        // Only add text message if there are NO projects AND NO users
+        if (!hasProjects && !hasUsers) {
+          chats.add(ChatEntity(text: data['message']['message'], isMe: false));
+        } else {
+          if (data['message']['message'] != null) {
+            chats
+                .add(ChatEntity(text: data['message']['message'], isMe: false));
+          }
+        }
+
+        // Add projects if available
+        if (hasProjects) {
           chats.add(ChatEntity(
               text: '', projects: data['message']['projects'], isMe: false));
-        } else if (data['message']['users'] != null &&
-            data['message']['users'].isNotEmpty) {
+        }
+
+        // Add users if available
+        if (hasUsers) {
           chats.add(ChatEntity(
               text: '', users: data['message']['users'], isMe: false));
         }
+
         aiIsResponding.value = false;
 
         scrollCtrl.animateTo(scrollCtrl.position.maxScrollExtent + 100,
