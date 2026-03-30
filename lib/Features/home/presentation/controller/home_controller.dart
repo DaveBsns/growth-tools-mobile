@@ -33,7 +33,7 @@ class HomeController extends GetxController {
 
   /// Currently selected recommendation type for "For You" segment
   /// Options: 'basic', 'content-based', 'collaborative', 'hybrid'
-  RxString selectedRecommendationType = 'basic'.obs;
+  RxString selectedRecommendationType = 'content-based'.obs;
 
   @override
   void onInit() {

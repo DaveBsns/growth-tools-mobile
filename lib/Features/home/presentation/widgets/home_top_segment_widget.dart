@@ -9,22 +9,21 @@ import 'package:idealize_new_version/Features/home/presentation/controller/home_
 class HomeTopSegmentWidget extends GetView<HomeController> {
   const HomeTopSegmentWidget({super.key});
 
-  /// Maps recommendation type keys to their display labels
-  String _getRecommendationTypeLabel(String type) {
-    switch (type) {
-      case 'basic':
-        return AppStrings.recommendationTypeBasic.tr;
-      case 'content-based':
-        return AppStrings.recommendationTypeContentBased.tr;
-      case 'collaborative':
-        return AppStrings.recommendationTypeCollaborative.tr;
-      case 'hybrid':
-        return AppStrings.recommendationTypeHybrid.tr;
-      default:
-        return AppStrings.recommendationTypeBasic.tr;
-    }
-  }
-
+  // /// Maps recommendation type keys to their display labels
+  // String _getRecommendationTypeLabel(String type) {
+  //   switch (type) {
+  //     case 'basic':
+  //       return AppStrings.recommendationTypeBasic.tr;
+  //     case 'content-based':
+  //       return AppStrings.recommendationTypeContentBased.tr;
+  //     case 'collaborative':
+  //       return AppStrings.recommendationTypeCollaborative.tr;
+  //     case 'hybrid':
+  //       return AppStrings.recommendationTypeHybrid.tr;
+  //     default:
+  //       return AppStrings.recommendationTypeBasic.tr;
+  //   }
+  // }
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
@@ -117,114 +116,114 @@ class HomeTopSegmentWidget extends GetView<HomeController> {
               onSelectionChanged: controller.updateSegmentValue,
             ),
           ),
-          _recommendationTypeDropdown(context),
+          // _recommendationTypeDropdown(context),
           _filteredByTagWidget(context),
         ],
       ),
     );
   }
 
-  /// Dropdown widget to select recommendation type
-  /// Only visible when "For You" segment is selected
-  /// Note: This widget is rebuilt by the parent GetBuilder when selectedFilter changes
-  Widget _recommendationTypeDropdown(BuildContext context) {
-    // Only show dropdown when "For You" segment is selected
-    if (controller.selectedFilter != 'for-you') {
-      return const SizedBox.shrink();
-    }
+  // /// Dropdown widget to select recommendation type
+  // /// Only visible when "For You" segment is selected
+  // /// Note: This widget is rebuilt by the parent GetBuilder when selectedFilter changes
+  // Widget _recommendationTypeDropdown(BuildContext context) {
+  //   // Only show dropdown when "For You" segment is selected
+  //   if (controller.selectedFilter != 'for-you') {
+  //     return const SizedBox.shrink();
+  //   }
 
-    return Obx(
-      () => Padding(
-        padding: const EdgeInsets.only(top: 12.0),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.1),
-                spreadRadius: 0.5,
-                blurRadius: 2,
-                offset: const Offset(0, 1),
-              ),
-            ],
-          ),
-          child: DropdownMenu<String>(
-            key: ValueKey(controller.selectedRecommendationType.value),
-            width: MediaQuery.sizeOf(context).width -
-                (AppConfig().dimens.medium * 2),
-            initialSelection: controller.selectedRecommendationType.value,
-            label: Text(
-              AppStrings.selectRecommendationType.tr,
-              style: TextStyle(
-                fontSize: 14,
-                color: AppConfig().colors.darkGrayColor,
-              ),
-            ),
-            inputDecorationTheme: InputDecorationTheme(
-              fillColor: AppConfig().colors.backGroundColor,
-              filled: true,
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 12,
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(
-                  color: AppConfig().colors.lightGrayColor.withOpacity(0.5),
-                  width: 1,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(
-                  color: AppConfig().colors.primaryColor,
-                  width: 1.5,
-                ),
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(
-                  color: AppConfig().colors.lightGrayColor.withOpacity(0.5),
-                  width: 1,
-                ),
-              ),
-            ),
-            dropdownMenuEntries: [
-              DropdownMenuEntry<String>(
-                value: 'basic',
-                label: _getRecommendationTypeLabel('basic'),
-              ),
-              DropdownMenuEntry<String>(
-                value: 'content-based',
-                label: _getRecommendationTypeLabel('content-based'),
-              ),
-              DropdownMenuEntry<String>(
-                value: 'collaborative',
-                label: _getRecommendationTypeLabel('collaborative'),
-              ),
-              DropdownMenuEntry<String>(
-                value: 'hybrid',
-                label: _getRecommendationTypeLabel('hybrid'),
-              ),
-            ],
-            onSelected: (String? value) {
-              if (value != null) {
-                controller.updateRecommendationType(value);
-              }
-            },
-            menuStyle: MenuStyle(
-              backgroundColor: WidgetStatePropertyAll(Colors.white),
-              shape: WidgetStatePropertyAll(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  //   return Obx(
+  //     () => Padding(
+  //       padding: const EdgeInsets.only(top: 12.0),
+  //       child: Container(
+  //         decoration: BoxDecoration(
+  //           borderRadius: BorderRadius.circular(12),
+  //           boxShadow: [
+  //             BoxShadow(
+  //               color: Colors.grey.withOpacity(0.1),
+  //               spreadRadius: 0.5,
+  //               blurRadius: 2,
+  //               offset: const Offset(0, 1),
+  //             ),
+  //           ],
+  //         ),
+  //         child: DropdownMenu<String>(
+  //           key: ValueKey(controller.selectedRecommendationType.value),
+  //           width: MediaQuery.sizeOf(context).width -
+  //               (AppConfig().dimens.medium * 2),
+  //           initialSelection: controller.selectedRecommendationType.value,
+  //           label: Text(
+  //             AppStrings.selectRecommendationType.tr,
+  //             style: TextStyle(
+  //               fontSize: 14,
+  //               color: AppConfig().colors.darkGrayColor,
+  //             ),
+  //           ),
+  //           inputDecorationTheme: InputDecorationTheme(
+  //             fillColor: AppConfig().colors.backGroundColor,
+  //             filled: true,
+  //             contentPadding: const EdgeInsets.symmetric(
+  //               horizontal: 16,
+  //               vertical: 12,
+  //             ),
+  //             enabledBorder: OutlineInputBorder(
+  //               borderRadius: BorderRadius.circular(12),
+  //               borderSide: BorderSide(
+  //                 color: AppConfig().colors.lightGrayColor.withOpacity(0.5),
+  //                 width: 1,
+  //               ),
+  //             ),
+  //             focusedBorder: OutlineInputBorder(
+  //               borderRadius: BorderRadius.circular(12),
+  //               borderSide: BorderSide(
+  //                 color: AppConfig().colors.primaryColor,
+  //                 width: 1.5,
+  //               ),
+  //             ),
+  //             border: OutlineInputBorder(
+  //               borderRadius: BorderRadius.circular(12),
+  //               borderSide: BorderSide(
+  //                 color: AppConfig().colors.lightGrayColor.withOpacity(0.5),
+  //                 width: 1,
+  //               ),
+  //             ),
+  //           ),
+  //           dropdownMenuEntries: [
+  //             DropdownMenuEntry<String>(
+  //               value: 'basic',
+  //               label: _getRecommendationTypeLabel('basic'),
+  //             ),
+  //             DropdownMenuEntry<String>(
+  //               value: 'content-based',
+  //               label: _getRecommendationTypeLabel('content-based'),
+  //             ),
+  //             DropdownMenuEntry<String>(
+  //               value: 'collaborative',
+  //               label: _getRecommendationTypeLabel('collaborative'),
+  //             ),
+  //             DropdownMenuEntry<String>(
+  //               value: 'hybrid',
+  //               label: _getRecommendationTypeLabel('hybrid'),
+  //             ),
+  //           ],
+  //           onSelected: (String? value) {
+  //             if (value != null) {
+  //               controller.updateRecommendationType(value);
+  //             }
+  //           },
+  //           menuStyle: MenuStyle(
+  //             backgroundColor: WidgetStatePropertyAll(Colors.white),
+  //             shape: WidgetStatePropertyAll(
+  //               RoundedRectangleBorder(
+  //                 borderRadius: BorderRadius.circular(12),
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _filteredByTagWidget(BuildContext context) => Obx(
         () => controller.selectedFilter == 'all-projects'
